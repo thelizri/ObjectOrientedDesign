@@ -1,5 +1,9 @@
 package se.kth.iv1350.processSale.controller;
 
+import se.kth.iv1350.processSale.integration.*;
+import se.kth.iv1350.processSale.model.*;
+import se.kth.iv1350.processSale.dto.*;
+
 public class Controller {
     private ExternalInventorySystem invSys;
     private ExternalAccountingSystem accSys;
@@ -15,13 +19,13 @@ public class Controller {
     }
 
     public void addItem(String itemID, int quantity) {
-        ItemDTO item = invSys.getItem(itemID);
+        Item item = invSys.getItem(itemID);
         currentSale.addItem(item, quantity);
-        invSys.updateInventory(itemID, -quantity);
     }
 
     public int getDiscounts(String customerID) {
-        return discDb.getDiscount(customerID);
+        SaleDTO saleDTO = currentSale.getSaleDTO();
+        return discDb.checkDiscounts(saleDTO, customerID);
     }
 
     public void createNewSale() {
@@ -29,23 +33,23 @@ public class Controller {
     }
 
     public int endSale() {
-        int discount = getDiscounts(currentSale.getSale().getCustomerID());
+        int discount = getDiscounts(currentSale.getSaleDTO().getCustomerID());
         currentSale.applyDiscount(discount);
         int total = currentSale.getTotal() - discount;
-        printer.printReceipt(currentSale.getReceipt());
+        printer.printReceipt(currentSale.getSaleDTO());
         pushSaleToExternalSystems();
         return total;
     }
 
     public int pay(int amount) {
         currentSale.pay(amount);
-        int change = currentSale.getTotal() - currentSale.getPaid();
-        return change;
+        int remaining = currentSale.getTotal() - currentSale.getAmountPaid();
+        return remaining;
     }
 
     private void pushSaleToExternalSystems() {
-        accSys.bookSale(currentSale.getSale());
-        invSys.updateInventory();
+        accSys.logNewSale(currentSale.getSaleDTO());
+        invSys.updateInventory(currentSale.getSaleDTO());
     }
 }
 

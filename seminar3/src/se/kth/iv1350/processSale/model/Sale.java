@@ -3,10 +3,11 @@ package se.kth.iv1350.processSale.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import se.kth.iv1350.processSale.dto.*;
 
 public class Sale {
     private LocalDateTime dateTime;
-    private List<Item> items;
+    private List<Item> itemList;
     private int totalPrice;
     private double totalVAT;
     private int amountPaid;
@@ -14,7 +15,7 @@ public class Sale {
 
     public Sale() {
         this.dateTime = LocalDateTime.now();
-        this.items = new ArrayList<>();
+        this.itemList = new ArrayList<>();
         this.totalPrice = 0;
         this.totalVAT = 0;
         this.amountPaid = 0;
@@ -25,16 +26,21 @@ public class Sale {
         return totalPrice;
     }
 
-    public SaleDTO getSale() {
-        return new SaleDTO(dateTime, items, totalPrice, totalVAT, amountPaid, change);
+    public int getAmountPaid() {
+        return amountPaid;
+    }
+
+    public SaleDTO getSaleDTO() {
+        return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, change);
     }
 
     public SaleDTO getReceipt() {
-        return new SaleDTO(dateTime, items, totalPrice - (int)totalVAT, totalVAT, amountPaid, change);
+        return new SaleDTO(dateTime, itemList, totalPrice - (int)totalVAT, totalVAT, amountPaid, change);
     }
 
-    public void addItem(ItemDTO item, int quantity) {
-        items.add(new Item(item, quantity));
+    public void addItem(Item item, int quantity) {
+        item.setQuantity(quantity);
+        itemList.add(item);
         int itemPrice = (int) (item.getPrice() * quantity);
         totalPrice += itemPrice;
         totalVAT += itemPrice * item.getRateVAT();
@@ -49,33 +55,6 @@ public class Sale {
 
     public void pay(int amount) {
         amountPaid += amount;
-        change = amountPaid - totalPrice;
-    }
-
-    private class Item {
-        private ItemDTO item;
-        private int quantity;
-
-        public Item(ItemDTO item, int quantity) {
-            this.item = item;
-            this.quantity = quantity;
-        }
-
-        public String getName() {
-            return item.getDescription();
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
-
-        public int getPrice() {
-            return (int) (item.getPrice() * quantity);
-        }
-
-        public double getVAT() {
-            return getPrice() * item.getRateVAT();
-        }
     }
 }
 

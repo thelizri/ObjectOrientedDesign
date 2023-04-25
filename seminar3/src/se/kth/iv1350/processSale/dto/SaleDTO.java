@@ -1,31 +1,27 @@
+package se.kth.iv1350.processSale.dto;
+
+import se.kth.iv1350.processSale.model.Item;
+import se.kth.iv1350.processSale.model.Sale;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SaleDTO {
     private LocalDateTime dateTime;
-    private List<ItemDTO> items;
+    private List<Item> itemList;
     private int totalPrice;
     private double totalVAT;
     private int amountPaid;
     private int change;
     private String customerID;
 
-    public SaleDTO(LocalDateTime dateTime, List<Item> items, int totalPrice, double totalVAT, int amountPaid, int change) {
+    public SaleDTO(LocalDateTime dateTime, List<Item> itemList, int totalPrice, double totalVAT, int amountPaid, int change) {
         this.dateTime = dateTime;
-        this.items = new ArrayList<ItemDTO>();
-        for (Item item : items) {
-            this.items.add(item.getItem());
+        this.itemList = new ArrayList<Item>();
+        for (Item item : itemList) {
+            this.itemList.add(item);
         }
-        this.totalPrice = totalPrice;
-        this.totalVAT = totalVAT;
-        this.amountPaid = amountPaid;
-        this.change = change;
-    }
-
-    public SaleDTO(LocalDateTime dateTime, List<ItemDTO> items, int totalPrice, double totalVAT, int amountPaid, int change) {
-        this.dateTime = dateTime;
-        this.items = items;
         this.totalPrice = totalPrice;
         this.totalVAT = totalVAT;
         this.amountPaid = amountPaid;
@@ -36,8 +32,8 @@ public class SaleDTO {
         return dateTime;
     }
 
-    public List<ItemDTO> getItems() {
-        return items;
+    public List<Item> getItems() {
+        return itemList;
     }
 
     public int getTotalPrice() {

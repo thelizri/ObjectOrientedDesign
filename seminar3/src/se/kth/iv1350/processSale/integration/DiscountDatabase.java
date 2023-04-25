@@ -1,4 +1,5 @@
 package se.kth.iv1350.processSale.integration;
+import se.kth.iv1350.processSale.dto.*;
 
 public class DiscountDatabase {
     // This is a placeholder class to represent a discount database.
