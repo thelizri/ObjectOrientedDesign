@@ -33,12 +33,12 @@ public class Controller {
         return item.getDescription()+" "+quantity+"\nTotal: "+currentSale.getTotal()+" kr";
     }
 
-    public float endSale() {
+    public float getTotal() {
         return currentSale.getTotal();
     }
 
-    public float getTotal() {
-        return currentSale.getTotal();
+    public float getRemainingAmount() {
+        return currentSale.getRemainingAmount();
     }
 
     public float requestDiscount(String customerID) {

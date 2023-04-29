@@ -28,9 +28,6 @@ public class View {
                 case "addItem":
                     addItem(tokens);
                     break;
-                case "endSale":
-                    endSale();
-                    break;
                 case "discount":
                     requestDiscount(tokens);
                     break;
@@ -70,11 +67,6 @@ public class View {
         }
     }
 
-    private void endSale() {
-        float total = controller.endSale();
-        System.out.printf("You need to pay: %.2f Kr\n", total);
-    }
-
     private void requestDiscount(String[] tokens) {
         if (tokens.length == 2) {
             String customerID = tokens[1];
@@ -83,6 +75,8 @@ public class View {
                 System.out.println("No discounts available.");
             } else {
                 System.out.printf("Applied discount: %.2f Kr\n", discount);
+                float remaining = controller.getRemainingAmount();
+                System.out.printf("Remaining Total: %.2f Kr\n", remaining);
             }
         } else {
             System.out.println("Invalid command");
@@ -115,9 +109,8 @@ public class View {
         System.out.println("startSale                       - starts a new sale");
         System.out.println("exit                            - closes program");
         System.out.println("addItem <itemID> <quantity>     - adds item to current sale");
-        System.out.println("endSale                         - starting payment process");
         System.out.println("discount <customerID>           - request a discount");
         System.out.println("pay <amount>                    - pays for purchase");
-        System.out.println("closeSale                       -closes the sale. prints receipt. updates external systems.");
+        System.out.println("closeSale                       - closes the sale. prints receipt. updates external systems.");
     }
 }
