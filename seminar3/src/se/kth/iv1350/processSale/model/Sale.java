@@ -46,23 +46,23 @@ public class Sale {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
 
         // Add header information
-        receiptBuilder.append("Receipt\n");
-        receiptBuilder.append(dateTime.format(formatter) + "\n");
+        receiptBuilder.append(String.format("%-10s %s\n", "Receipt", dateTime.format(formatter)));
 
         // Add item information
         for (Item item : itemList) {
-            receiptBuilder.append(item.getDescription() + "\t" + item.getQuantity() + "\t" + item.getPrice() * item.getQuantity() + " kr \n");
+            receiptBuilder.append(String.format("%-20s %-3d %6.2f kr\n", item.getDescription(), item.getQuantity(), item.getPrice() * item.getQuantity()));
         }
 
         // Add summary information
-        receiptBuilder.append("\nTotal price:\t\t" + totalPrice + "\n");
-        receiptBuilder.append("Discount:\t\t" + discount + "\n");
-        receiptBuilder.append("Total VAT:\t\t" + totalVAT + "\n");
-        receiptBuilder.append("Amount paid:\t\t" + amountPaid + "\n");
-        receiptBuilder.append("Change:\t\t\t" + (amountPaid - totalPrice + discount) + "\n");
+        receiptBuilder.append(String.format("\n%-20s %10.2f kr\n", "Total price:", totalPrice));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", discount));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Total VAT:", totalVAT));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Amount paid:", amountPaid));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Change:", (amountPaid - totalPrice + discount)));
 
         return receiptBuilder.toString();
     }
+
 
 
     public void addItem(Item item, int quantity) {
