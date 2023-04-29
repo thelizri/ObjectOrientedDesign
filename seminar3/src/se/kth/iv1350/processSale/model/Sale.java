@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import se.kth.iv1350.processSale.dto.*;
@@ -41,8 +42,28 @@ public class Sale {
     }
 
     public String getReceipt() {
-        return "Receipt";
+        StringBuilder receiptBuilder = new StringBuilder();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
+
+        // Add header information
+        receiptBuilder.append("Receipt\n");
+        receiptBuilder.append(dateTime.format(formatter) + "\n");
+
+        // Add item information
+        for (Item item : itemList) {
+            receiptBuilder.append(item.getDescription() + "\t" + item.getQuantity() + "\t" + item.getPrice() * item.getQuantity() + " kr \n");
+        }
+
+        // Add summary information
+        receiptBuilder.append("\nTotal price:\t\t" + totalPrice + "\n");
+        receiptBuilder.append("Discount:\t\t" + discount + "\n");
+        receiptBuilder.append("Total VAT:\t\t" + totalVAT + "\n");
+        receiptBuilder.append("Amount paid:\t\t" + amountPaid + "\n");
+        receiptBuilder.append("Change:\t\t\t" + (amountPaid - totalPrice + discount) + "\n");
+
+        return receiptBuilder.toString();
     }
+
 
     public void addItem(Item item, int quantity) {
         item.setQuantity(quantity);
