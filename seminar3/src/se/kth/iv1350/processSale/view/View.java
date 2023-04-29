@@ -63,8 +63,7 @@ public class View {
         if (tokens.length == 3) {
             String itemID = tokens[1];
             int quantity = Integer.parseInt(tokens[2]);
-            controller.addItem(itemID, quantity);
-            System.out.printf("Total Amount: %.2f Kr\n", controller.getTotal());
+            System.out.println(controller.addItem(itemID, quantity));
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: addItem <itemID> <quantity>");

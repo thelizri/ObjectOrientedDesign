@@ -10,7 +10,6 @@ public class Controller {
     private Printer printer;
     private DiscountDatabase discDb;
     private Sale currentSale;
-    private String customerID;
 
     public Controller(ExternalInventorySystem invSys, ExternalAccountingSystem accSys, Printer printer, DiscountDatabase discDb) {
         this.invSys = invSys;
@@ -28,9 +27,10 @@ public class Controller {
         }
     }
 
-    public void addItem(String itemID, int quantity) {
+    public String addItem(String itemID, int quantity) {
         Item item = invSys.getItem(itemID);
         currentSale.addItem(item, quantity);
+        return item.getDescription()+" "+quantity+"\nTotal: "+currentSale.getTotal()+" kr";
     }
 
     public float endSale() {
@@ -42,7 +42,6 @@ public class Controller {
     }
 
     public float requestDiscount(String customerID) {
-        this.customerID = customerID;
         float amount = discDb.checkDiscounts(currentSale.getSaleDTO(), customerID);
         currentSale.applyDiscount(amount);
         return amount;
