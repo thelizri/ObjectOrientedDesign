@@ -7,9 +7,9 @@ import java.util.List;
 import se.kth.iv1350.processSale.dto.*;
 
 /**
- The Sale class represents a sale in the point of sale system.
- It contains information about the items in the sale, the total price of the sale,
- discounts applied, amount paid, and change given.
+ * The Sale class represents a sale in the point of sale system.
+ *  It contains information about the items in the sale, the total price of the sale,
+ *  discounts applied, amount paid, and change given.
  */
 public class Sale {
     private LocalDateTime dateTime;

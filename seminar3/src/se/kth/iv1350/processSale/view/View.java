@@ -3,6 +3,10 @@ package se.kth.iv1350.processSale.view;
 import se.kth.iv1350.processSale.controller.Controller;
 import java.util.Scanner;
 
+/**
+ * This class represents the interface the cashier uses when they take the customer's order.
+ * It's a simple command line interface.
+ */
 public class View {
     private Controller controller;
     private Scanner scanner;
