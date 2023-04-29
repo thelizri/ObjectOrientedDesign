@@ -37,10 +37,15 @@ public class Controller {
         return currentSale.getTotal();
     }
 
-    public void requestDiscount(String customerID) {
+    public float getTotal() {
+        return currentSale.getTotal();
+    }
+
+    public float requestDiscount(String customerID) {
         this.customerID = customerID;
         float amount = discDb.checkDiscounts(currentSale.getSaleDTO(), customerID);
         currentSale.applyDiscount(amount);
+        return amount;
     }
 
     public float pay(float amount) {
