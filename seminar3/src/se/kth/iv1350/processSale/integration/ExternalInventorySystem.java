@@ -6,8 +6,6 @@ import se.kth.iv1350.processSale.model.Item;
  A placeholder class to represent an external inventory system. It would be implemented with the actual system's APIs and endpoints.
  */
 public class ExternalInventorySystem {
-    // This is a placeholder class to represent an external inventory system.
-    // It would be implemented with the actual system's APIs and endpoints.
 
     /**
      * Constructs a new instance of the ExternalInventorySystem class.

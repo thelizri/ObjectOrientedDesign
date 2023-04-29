@@ -7,7 +7,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SaleDTO represents a data transfer object for a sale.
+ */
 public class SaleDTO {
+
     private LocalDateTime dateTime;
     private List<Item> itemList;
     private float totalPrice;
@@ -15,6 +19,15 @@ public class SaleDTO {
     private float amountPaid;
     private float change;
 
+    /**
+     * Constructs a new SaleDTO object with the specified parameters.
+     * @param dateTime The date and time of the sale.
+     * @param itemList The list of items sold in the sale.
+     * @param totalPrice The total price of the sale.
+     * @param totalVAT The total value-added tax (VAT) of the sale.
+     * @param amountPaid The amount paid for the sale.
+     * @param change The change given to the customer after the sale.
+     */
     public SaleDTO(LocalDateTime dateTime, List<Item> itemList, float totalPrice, float totalVAT, float amountPaid, float change) {
         this.dateTime = dateTime;
         this.itemList = new ArrayList<Item>();
@@ -27,28 +40,53 @@ public class SaleDTO {
         this.change = change;
     }
 
+    /**
+     * Returns the date and time of the sale.
+     * @return The date and time of the sale.
+     */
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
+    /**
+     * Returns the list of items sold in the sale.
+     * @return The list of items sold in the sale.
+     */
     public List<Item> getItems() {
         return itemList;
     }
 
+    /**
+     * Returns the total price of the sale.
+     * @return The total price of the sale.
+     */
     public float getTotalPrice() {
         return totalPrice;
     }
 
+    /**
+     * Returns the total value-added tax (VAT) of the sale.
+     * @return The total value-added tax (VAT) of the sale.
+     */
     public float getTotalVAT() {
         return totalVAT;
     }
 
+    /**
+     * Returns the amount paid for the sale.
+     * @return The amount paid for the sale.
+     */
     public float getAmountPaid() {
         return amountPaid;
     }
 
+    /**
+     * Returns the change given to the customer after the sale.
+     * @return The change given to the customer after the sale.
+     */
     public float getChange() {
         return change;
     }
 
 }
+
