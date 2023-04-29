@@ -2,6 +2,9 @@ package se.kth.iv1350.processSale.integration;
 
 import se.kth.iv1350.processSale.dto.SaleDTO;
 
+/**
+ * The Printer class represents a printer used to print receipts.
+ */
 public class Printer {
 
     /**
