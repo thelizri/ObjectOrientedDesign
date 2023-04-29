@@ -56,8 +56,12 @@ public class Sale {
         this.discount = amount;
     }
 
-    public void pay(float amount) {
+    public boolean pay(float amount) {
         amountPaid += amount;
+        if (getRemainingAmount() > 0){
+            return false;
+        }
+        return true;
     }
 }
 
