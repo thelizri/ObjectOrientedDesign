@@ -10,6 +10,7 @@ public class Controller {
     private Printer printer;
     private DiscountDatabase discDb;
     private Sale currentSale;
+    private String customerID;
 
     public Controller(ExternalInventorySystem invSys, ExternalAccountingSystem accSys, Printer printer, DiscountDatabase discDb) {
         this.invSys = invSys;
@@ -18,33 +19,28 @@ public class Controller {
         this.discDb = discDb;
     }
 
+    public void createNewSale() {
+        currentSale = new Sale();
+    }
+
     public void addItem(String itemID, int quantity) {
         Item item = invSys.getItem(itemID);
         currentSale.addItem(item, quantity);
     }
 
-    public int getDiscounts(String customerID) {
-        SaleDTO saleDTO = currentSale.getSaleDTO();
-        return discDb.checkDiscounts(saleDTO, customerID);
+    public float endSale() {
+        return currentSale.getTotal();
     }
 
-    public void createNewSale() {
-        currentSale = new Sale();
+    public void requestDiscount(String customerID) {
+        this.customerID = customerID;
+        float amount = discDb.checkDiscounts(currentSale.getSaleDTO(), customerID);
+        currentSale.applyDiscount(amount);
     }
 
-    public int endSale() {
-        int discount = getDiscounts(currentSale.getSaleDTO().getCustomerID());
-        currentSale.applyDiscount(discount);
-        int total = currentSale.getTotal() - discount;
-        printer.printReceipt(currentSale.getSaleDTO());
-        pushSaleToExternalSystems();
-        return total;
-    }
-
-    public int pay(int amount) {
+    public float pay(float amount) {
         currentSale.pay(amount);
-        int remaining = currentSale.getTotal() - currentSale.getAmountPaid();
-        return remaining;
+        return currentSale.getRemainingAmount();
     }
 
     private void pushSaleToExternalSystems() {

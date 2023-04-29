@@ -9,7 +9,7 @@ public class DiscountDatabase {
         // constructor implementation
     }
 
-    public int checkDiscounts(SaleDTO currentSale, String customerID) {
+    public float checkDiscounts(SaleDTO currentSale, String customerID) {
         // implementation to check for applicable discounts for the current sale and customer
         return 0;
     }

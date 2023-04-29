@@ -8,10 +8,11 @@ import se.kth.iv1350.processSale.dto.*;
 public class Sale {
     private LocalDateTime dateTime;
     private List<Item> itemList;
-    private int totalPrice;
-    private double totalVAT;
-    private int amountPaid;
-    private int change;
+    private float totalPrice;
+    private float discount;
+    private float totalVAT;
+    private float amountPaid;
+    private float change;
 
     public Sale() {
         this.dateTime = LocalDateTime.now();
@@ -20,14 +21,19 @@ public class Sale {
         this.totalVAT = 0;
         this.amountPaid = 0;
         this.change = 0;
+        this.discount = 0;
     }
 
-    public int getTotal() {
+    public float getTotal() {
         return totalPrice;
     }
 
-    public int getAmountPaid() {
+    public float getAmountPaid() {
         return amountPaid;
+    }
+
+    public float getRemainingAmount() {
+        return totalPrice - discount - amountPaid;
     }
 
     public SaleDTO getSaleDTO() {
@@ -35,7 +41,7 @@ public class Sale {
     }
 
     public SaleDTO getReceipt() {
-        return new SaleDTO(dateTime, itemList, totalPrice - (int)totalVAT, totalVAT, amountPaid, change);
+        return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, change);
     }
 
     public void addItem(Item item, int quantity) {
@@ -46,14 +52,11 @@ public class Sale {
         totalVAT += itemPrice * item.getRateVAT();
     }
 
-    public int applyDiscount(int amount) {
-        int maxDiscount = totalPrice;
-        int actualDiscount = Math.min(amount, maxDiscount);
-        totalPrice -= actualDiscount;
-        return actualDiscount;
+    public void applyDiscount(float amount) {
+        this.discount = amount;
     }
 
-    public void pay(int amount) {
+    public void pay(float amount) {
         amountPaid += amount;
     }
 }

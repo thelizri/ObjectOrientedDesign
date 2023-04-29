@@ -10,13 +10,13 @@ import java.util.List;
 public class SaleDTO {
     private LocalDateTime dateTime;
     private List<Item> itemList;
-    private int totalPrice;
-    private double totalVAT;
-    private int amountPaid;
-    private int change;
+    private float totalPrice;
+    private float totalVAT;
+    private float amountPaid;
+    private float change;
     private String customerID;
 
-    public SaleDTO(LocalDateTime dateTime, List<Item> itemList, int totalPrice, double totalVAT, int amountPaid, int change) {
+    public SaleDTO(LocalDateTime dateTime, List<Item> itemList, float totalPrice, float totalVAT, float amountPaid, float change) {
         this.dateTime = dateTime;
         this.itemList = new ArrayList<Item>();
         for (Item item : itemList) {
@@ -36,19 +36,19 @@ public class SaleDTO {
         return itemList;
     }
 
-    public int getTotalPrice() {
+    public float getTotalPrice() {
         return totalPrice;
     }
 
-    public double getTotalVAT() {
+    public float getTotalVAT() {
         return totalVAT;
     }
 
-    public int getAmountPaid() {
+    public float getAmountPaid() {
         return amountPaid;
     }
 
-    public int getChange() {
+    public float getChange() {
         return change;
     }
 
