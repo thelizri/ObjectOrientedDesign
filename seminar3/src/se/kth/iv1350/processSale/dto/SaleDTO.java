@@ -14,7 +14,6 @@ public class SaleDTO {
     private float totalVAT;
     private float amountPaid;
     private float change;
-    private String customerID;
 
     public SaleDTO(LocalDateTime dateTime, List<Item> itemList, float totalPrice, float totalVAT, float amountPaid, float change) {
         this.dateTime = dateTime;
@@ -52,11 +51,4 @@ public class SaleDTO {
         return change;
     }
 
-    public String getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
 }

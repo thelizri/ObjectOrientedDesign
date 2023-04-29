@@ -15,6 +15,8 @@ public class Sale {
     private float amountPaid;
     private float change;
 
+    private String customerID;
+
     public Sale() {
         this.dateTime = LocalDateTime.now();
         this.itemList = new ArrayList<>();
@@ -46,7 +48,7 @@ public class Sale {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
 
         // Add header information
-        receiptBuilder.append(String.format("%-10s %s\n", "Receipt", dateTime.format(formatter)));
+        receiptBuilder.append(String.format("%-10s %23s\n", "Receipt", dateTime.format(formatter)));
 
         // Add item information
         for (Item item : itemList) {
@@ -86,6 +88,10 @@ public class Sale {
 
     public void pay(float amount) {
         amountPaid += amount;
+    }
+
+    public void setCustomerID(String customerID){
+        this.customerID = customerID;
     }
 }
 
