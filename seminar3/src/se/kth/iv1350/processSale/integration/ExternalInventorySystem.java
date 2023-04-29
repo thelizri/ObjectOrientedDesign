@@ -15,6 +15,6 @@ public class ExternalInventorySystem {
 
     public Item getItem(String itemIdentifier) {
         // implementation to retrieve an item from the inventory system using its identifier
-        return new Item(itemIdentifier, 0.0, "", 0.0);
+        return new Item(itemIdentifier, 100, "Milk", 10);
     }
 }

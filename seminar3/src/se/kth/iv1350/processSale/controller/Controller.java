@@ -20,7 +20,12 @@ public class Controller {
     }
 
     public void createNewSale() {
-        currentSale = new Sale();
+        if (currentSale == null){
+            currentSale = new Sale();
+        }
+        else{
+            System.out.print("Error");
+        }
     }
 
     public void addItem(String itemID, int quantity) {
@@ -43,9 +48,19 @@ public class Controller {
         return currentSale.getRemainingAmount();
     }
 
+    public boolean closeSale(){
+        if (currentSale.closeSale()){
+            pushSaleToExternalSystems();
+            this.currentSale = null;
+            return true;
+        }
+        return false;
+    }
+
     private void pushSaleToExternalSystems() {
         accSys.logNewSale(currentSale.getSaleDTO());
         invSys.updateInventory(currentSale.getSaleDTO());
+        printer.printReceipt(currentSale.getReceipt());
     }
 }
 

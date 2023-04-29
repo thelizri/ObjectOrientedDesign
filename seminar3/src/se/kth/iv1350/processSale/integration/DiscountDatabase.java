@@ -11,7 +11,7 @@ public class DiscountDatabase {
 
     public float checkDiscounts(SaleDTO currentSale, String customerID) {
         // implementation to check for applicable discounts for the current sale and customer
-        return 0;
+        return 10;
     }
 }
 
