@@ -8,9 +8,9 @@ public class Printer {
         // Constructor code goes here, if needed
     }
 
-    public void printReceipt(SaleDTO receipt) {
+    public void printReceipt(String receipt) {
         // Printing code goes here
-        System.out.println("Receipt: " + receipt.toString());
+        System.out.println(receipt);
     }
 
 }

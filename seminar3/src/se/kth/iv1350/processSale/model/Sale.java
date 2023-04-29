@@ -40,8 +40,8 @@ public class Sale {
         return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, change);
     }
 
-    public SaleDTO getReceipt() {
-        return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, change);
+    public String getReceipt() {
+        return "Receipt";
     }
 
     public void addItem(Item item, int quantity) {
