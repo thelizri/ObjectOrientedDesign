@@ -2,16 +2,27 @@ package se.kth.iv1350.processSale.integration;
 
 import se.kth.iv1350.processSale.dto.*;
 
+/**
+ * This is a placeholder class to represent an external accounting system.
+ * It would be implemented with the actual system's APIs and endpoints.
+ */
 public class ExternalAccountingSystem {
-    // This is a placeholder class to represent an external accounting system.
-    // It would be implemented with the actual system's APIs and endpoints.
 
+    /**
+     * Constructs a new instance of the ExternalAccountingSystem class.
+     */
     public ExternalAccountingSystem() {
         // constructor implementation
     }
 
-    public void logNewSale(SaleDTO receipt) {
+    /**
+     * Logs the new sale in the accounting system.
+     *
+     * @param saleDTO The SaleDTO object representing the sale.
+     */
+    public void logNewSale(SaleDTO saleDTO) {
         // implementation to log the new sale in the accounting system
     }
 }
+
 

@@ -7,12 +7,19 @@ public class View {
     private Controller controller;
     private Scanner scanner;
 
+    /**
+     * Creates a new instance of the View class with the specified controller.
+     * @param controller The controller to use for the view.
+     */
     public View(Controller controller) {
         this.controller = controller;
         scanner = new Scanner(System.in);
         run();
     }
 
+    /**
+     * Runs the point of sale system until the user exits.
+     */
     public void run() {
         System.out.println("Welcome to ProcessSale. Type a command in the terminal.");
         while (true) {
