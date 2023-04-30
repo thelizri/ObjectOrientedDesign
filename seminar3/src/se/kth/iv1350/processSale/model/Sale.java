@@ -54,7 +54,8 @@ public class Sale {
      * @return The remaining amount to be paid for the sale.
      */
     public float getRemainingAmount() {
-        return totalPrice - discount - amountPaid;
+        float result = totalPrice - discount - amountPaid > 0? totalPrice - discount - amountPaid: 0;
+        return result;
     }
 
     /**
@@ -83,7 +84,7 @@ public class Sale {
 
         // Add summary information
         receiptBuilder.append(String.format("\n%-20s %10.2f kr\n", "Total price:", totalPrice));
-        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", discount));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", -discount));
         receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Total VAT:", totalVAT));
         receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Amount paid:", amountPaid));
         receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Change:", (amountPaid - totalPrice + discount)));

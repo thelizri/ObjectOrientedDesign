@@ -99,11 +99,7 @@ public class View {
         if (tokens.length == 2) {
             float amount = Float.parseFloat(tokens[1]);
             float remaining = controller.pay(amount);
-            if (remaining > 0) {
-                System.out.printf("Remaining: %.2f Kr\n", remaining);
-            } else {
-                System.out.printf("Remaining: 0 kr\n");
-            }
+            System.out.printf("Remaining: %.2f Kr\n", remaining);
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: pay <amount>");
@@ -113,6 +109,8 @@ public class View {
     private void closeSale() {
         if (!controller.closeSale()) {
             System.out.println("You must finish paying before you can close the sale.");
+            float remaining = controller.getRemainingAmount();
+            System.out.printf("Remaining Total: %.2f Kr\n", remaining);
         }
     }
 
