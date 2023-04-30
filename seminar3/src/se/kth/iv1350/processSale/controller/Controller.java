@@ -36,9 +36,6 @@ public class Controller {
         if (currentSale == null){
             currentSale = new Sale();
         }
-        else{
-            System.out.print("Error");
-        }
     }
 
     /**
