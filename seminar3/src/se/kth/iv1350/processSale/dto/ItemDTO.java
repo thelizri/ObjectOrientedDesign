@@ -1,40 +1,32 @@
-package se.kth.iv1350.processSale.model;
-
-import se.kth.iv1350.processSale.dto.ItemDTO;
+package se.kth.iv1350.processSale.dto;
 
 /**
- * Represents an item that can be sold in a sale.
+ * Represents an item that can be sold in a sale, as a DTO (data transfer object).
  */
-public class Item {
+public class ItemDTO {
     private final String itemIdentifier;
     private final float price;
     private final String description;
-    private final float rateVAT; //There are three different VAT rates: 25%, 12% and 6%.
-    private final float amountVAT; //Price*VATrate
-    private int quantity;
+    private final float rateVAT;
+    private final float amountVAT;
+    private final int quantity;
 
     /**
-     * Creates a new instance of the Item class.
+     * Creates a new instance of the ItemDTO class.
      * @param itemIdentifier The identifier of the item.
      * @param price The price of the item.
      * @param description The description of the item.
      * @param rateVAT The VAT rate of the item.
+     * @param amountVAT The VAT amount of the item.
+     * @param quantity The quantity of the item.
      */
-    public Item(String itemIdentifier, float price, String description, float rateVAT) {
+    public ItemDTO(String itemIdentifier, float price, String description, float rateVAT, float amountVAT, int quantity) {
         this.itemIdentifier = itemIdentifier;
         this.price = price;
         this.description = description;
         this.rateVAT = rateVAT;
-        this.quantity = 0;
-        this.amountVAT = rateVAT*price;
-    }
-
-    /**
-     * Returns a DTO (data transfer object) for this item, containing only the information needed to represent the item in a sale.
-     * @return An ItemDTO instance representing this item.
-     */
-    public ItemDTO getItemDTO(){
-        return new ItemDTO(this.itemIdentifier, this.price, this.description, this.rateVAT, this.amountVAT, this.quantity);
+        this.amountVAT = amountVAT;
+        this.quantity = quantity;
     }
 
     /**
@@ -83,13 +75,5 @@ public class Item {
      */
     public int getQuantity() {
         return quantity;
-    }
-
-    /**
-     * Sets the quantity of the item.
-     * @param quantity The quantity to set.
-     */
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class SaleDTO {
 
     private LocalDateTime dateTime;
-    private List<Item> itemList;
+    private List<ItemDTO> itemList;
     private float totalPrice;
     private float totalVAT;
     private float amountPaid;
@@ -30,9 +30,9 @@ public class SaleDTO {
      */
     public SaleDTO(LocalDateTime dateTime, List<Item> itemList, float totalPrice, float totalVAT, float amountPaid, float change) {
         this.dateTime = dateTime;
-        this.itemList = new ArrayList<Item>();
+        this.itemList = new ArrayList<ItemDTO>();
         for (Item item : itemList) {
-            this.itemList.add(item);
+            this.itemList.add(item.getItemDTO());
         }
         this.totalPrice = totalPrice;
         this.totalVAT = totalVAT;
@@ -52,7 +52,7 @@ public class SaleDTO {
      * Returns the list of items sold in the sale.
      * @return The list of items sold in the sale.
      */
-    public List<Item> getItems() {
+    public List<ItemDTO> getItems() {
         return itemList;
     }
 
