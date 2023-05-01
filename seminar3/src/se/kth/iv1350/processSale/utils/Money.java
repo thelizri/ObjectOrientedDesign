@@ -18,14 +18,6 @@ public class Money {
 
     /**
      * Creates a new instance of the Money class.
-     * @param amount The amount of money, as a float.
-     */
-    public Money(float amount) {
-        this.amount = new BigDecimal(amount);
-    }
-
-    /**
-     * Creates a new instance of the Money class.
      * @param amount The amount of money, as a double.
      */
     public Money(double amount) {
@@ -78,15 +70,6 @@ public class Money {
      * @param scalar The scalar value to multiply by.
      * @return A new Money instance representing the product of this instance and the scalar value.
      */
-    public Money multiply(float scalar) {
-        return new Money(this.amount.multiply(new BigDecimal(scalar)));
-    }
-
-    /**
-     * Multiplies this instance by a scalar value and returns the result as a new Money instance.
-     * @param scalar The scalar value to multiply by.
-     * @return A new Money instance representing the product of this instance and the scalar value.
-     */
     public Money multiply(int scalar) {
         return new Money(this.amount.multiply(new BigDecimal(scalar)));
     }
@@ -109,42 +92,11 @@ public class Money {
     }
 
     /**
-     * Checks if this instance is greater than another Money instance.
-     * @param other The other Money instance to compare to.
-     * @return true if this instance is greater than the other instance, false otherwise.
-     */
-    public boolean isGreaterThan(Money other) {
-        return this.amount.compareTo(other.amount) > 0;
-    }
-
-    /**
-     * Checks if this instance is less than another Money instance.
-     * @param other The other Money instance to compare to.
-     * @return true if this instance is less than the other instance, false otherwise.
-     */
-    public boolean isLessThan(Money other) {
-        return this.amount.compareTo(other.amount) < 0;
-    }
-
-    /**
      * Checks if this instance is greater than 0.
      * @return true if this instance is greater than 0, false otherwise.
      */
     public boolean isGreaterThanZero() {
         return this.amount.compareTo(BigDecimal.ZERO) > 0;
-    }
-
-    /**
-     * Compares this instance with another Money instance.
-     * @param other The other Money instance to compare to.
-     * @return A negative integer, zero, or a positive integer as this instance is less than, equal to, or greater than the specified object.
-     */
-    public int compareTo(Money other) {
-        return this.amount.compareTo(other.amount);
-    }
-
-    private BigDecimal getAmount() {
-        return this.amount;
     }
 
     /**
@@ -162,5 +114,9 @@ public class Money {
     @Override
     public String toString() {
         return this.amount.toPlainString();
+    }
+
+    private BigDecimal getAmount() {
+        return this.amount;
     }
 }
