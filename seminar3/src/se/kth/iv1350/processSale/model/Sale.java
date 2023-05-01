@@ -105,7 +105,11 @@ public class Sale {
 
         // Add summary information
         receiptBuilder.append(String.format("\n%-20s %10.2f kr\n", "Total price:", totalPrice.getAmountFloat()));
-        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", discount.negate().getAmountFloat()));
+
+        if (discount.isGreaterThanZero()){
+            receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", discount.negate().getAmountFloat()));
+            receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discounted price:", totalPrice.subtract(discount).getAmountFloat()));
+        }
         receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Total VAT:", totalVAT.getAmountFloat()));
         receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Amount paid:", amountPaid.getAmountFloat()));
         receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Change:", this.getChange().getAmountFloat()));
