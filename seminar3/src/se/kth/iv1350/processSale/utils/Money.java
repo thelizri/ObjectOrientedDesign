@@ -131,4 +131,19 @@ public class Money {
     private BigDecimal getAmount() {
         return this.amount;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        Money money = (Money) object;
+
+        return amount.equals(money.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return amount.hashCode();
+    }
 }
