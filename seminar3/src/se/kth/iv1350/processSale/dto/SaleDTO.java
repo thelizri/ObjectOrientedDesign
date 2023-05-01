@@ -2,6 +2,7 @@ package se.kth.iv1350.processSale.dto;
 
 import se.kth.iv1350.processSale.model.Item;
 import se.kth.iv1350.processSale.model.Sale;
+import se.kth.iv1350.processSale.utils.Money;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,10 +15,10 @@ public class SaleDTO {
 
     private LocalDateTime dateTime;
     private List<ItemDTO> itemList;
-    private float totalPrice;
-    private float totalVAT;
-    private float amountPaid;
-    private float change;
+    private Money totalPrice;
+    private Money totalVAT;
+    private Money amountPaid;
+    private Money change;
 
     /**
      * Constructs a new SaleDTO object with the specified parameters.
@@ -28,7 +29,7 @@ public class SaleDTO {
      * @param amountPaid The amount paid for the sale.
      * @param change The change given to the customer after the sale.
      */
-    public SaleDTO(LocalDateTime dateTime, List<Item> itemList, float totalPrice, float totalVAT, float amountPaid, float change) {
+    public SaleDTO(LocalDateTime dateTime, List<Item> itemList, Money totalPrice, Money totalVAT, Money amountPaid, Money change) {
         this.dateTime = dateTime;
         this.itemList = new ArrayList<ItemDTO>();
         for (Item item : itemList) {
@@ -60,7 +61,7 @@ public class SaleDTO {
      * Returns the total price of the sale.
      * @return The total price of the sale.
      */
-    public float getTotalPrice() {
+    public Money getTotalPrice() {
         return totalPrice;
     }
 
@@ -68,7 +69,7 @@ public class SaleDTO {
      * Returns the total value-added tax (VAT) of the sale.
      * @return The total value-added tax (VAT) of the sale.
      */
-    public float getTotalVAT() {
+    public Money getTotalVAT() {
         return totalVAT;
     }
 
@@ -76,7 +77,7 @@ public class SaleDTO {
      * Returns the amount paid for the sale.
      * @return The amount paid for the sale.
      */
-    public float getAmountPaid() {
+    public Money getAmountPaid() {
         return amountPaid;
     }
 
@@ -84,7 +85,7 @@ public class SaleDTO {
      * Returns the change given to the customer after the sale.
      * @return The change given to the customer after the sale.
      */
-    public float getChange() {
+    public Money getChange() {
         return change;
     }
 

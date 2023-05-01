@@ -1,6 +1,9 @@
 package se.kth.iv1350.processSale.view;
 
 import se.kth.iv1350.processSale.controller.Controller;
+import se.kth.iv1350.processSale.utils.Money;
+
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 /**
@@ -81,13 +84,13 @@ public class View {
     private void requestDiscount(String[] tokens) {
         if (tokens.length == 2) {
             String customerID = tokens[1];
-            float discount = controller.requestDiscount(customerID);
-            if (discount <= 0) {
+            Money discount = controller.requestDiscount(customerID);
+            if (discount.isLessThan(new Money(1))) {
                 System.out.println("No discounts available.");
             } else {
-                System.out.printf("Applied discount: %.2f Kr\n", discount);
-                float remaining = controller.getRemainingAmount();
-                System.out.printf("Remaining Total: %.2f Kr\n", remaining);
+                System.out.printf("Applied discount: %.2s Kr\n", discount);
+                Money remaining = controller.getRemainingAmount();
+                System.out.printf("Remaining Total: %.2s Kr\n", remaining);
             }
         } else {
             System.out.println("Invalid command");
@@ -97,8 +100,8 @@ public class View {
 
     private void makePayment(String[] tokens) {
         if (tokens.length == 2) {
-            float amount = Float.parseFloat(tokens[1]);
-            float remaining = controller.pay(amount);
+            Money amount = new Money(tokens[1]);
+            Money remaining = controller.pay(amount);
             System.out.printf("Remaining: %.2f Kr\n", remaining);
         } else {
             System.out.println("Invalid command");
@@ -109,8 +112,8 @@ public class View {
     private void closeSale() {
         if (!controller.closeSale()) {
             System.out.println("You must finish paying before you can close the sale.");
-            float remaining = controller.getRemainingAmount();
-            System.out.printf("Remaining Total: %.2f Kr\n", remaining);
+            Money remaining = controller.getRemainingAmount();
+            System.out.printf("Remaining Total: %.2s Kr\n", remaining);
         }
     }
 

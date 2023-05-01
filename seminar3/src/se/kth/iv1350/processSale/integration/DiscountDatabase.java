@@ -1,5 +1,6 @@
 package se.kth.iv1350.processSale.integration;
 import se.kth.iv1350.processSale.dto.*;
+import se.kth.iv1350.processSale.utils.Money;
 
 /**
  * A placeholder class to represent a discount database. It would be implemented with the actual database's APIs and endpoints.
@@ -19,9 +20,9 @@ public class DiscountDatabase {
      * @param customerID The ID of the customer to check for discounts.
      * @return The amount of discount, if applicable.
      */
-    public float checkDiscounts(SaleDTO currentSale, String customerID) {
+    public Money checkDiscounts(SaleDTO currentSale, String customerID) {
         // implementation to check for applicable discounts for the current sale and customer
-        return 10;
+        return new Money(10);
     }
 }
 

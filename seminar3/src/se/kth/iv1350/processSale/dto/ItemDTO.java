@@ -1,14 +1,16 @@
 package se.kth.iv1350.processSale.dto;
 
+import se.kth.iv1350.processSale.utils.Money;
+
 /**
  * Represents an item that can be sold in a sale, as a DTO (data transfer object).
  */
 public class ItemDTO {
     private final String itemIdentifier;
-    private final float price;
+    private final Money price;
     private final String description;
-    private final float rateVAT;
-    private final float amountVAT;
+    private final Money rateVAT;
+    private final Money amountVAT;
     private final int quantity;
 
     /**
@@ -20,7 +22,7 @@ public class ItemDTO {
      * @param amountVAT The VAT amount of the item.
      * @param quantity The quantity of the item.
      */
-    public ItemDTO(String itemIdentifier, float price, String description, float rateVAT, float amountVAT, int quantity) {
+    public ItemDTO(String itemIdentifier, Money price, String description, Money rateVAT, Money amountVAT, int quantity) {
         this.itemIdentifier = itemIdentifier;
         this.price = price;
         this.description = description;
@@ -41,7 +43,7 @@ public class ItemDTO {
      * Gets the price of the item.
      * @return The price of the item.
      */
-    public float getPrice() {
+    public Money getPrice() {
         return this.price;
     }
 
@@ -57,7 +59,7 @@ public class ItemDTO {
      * Gets the VAT rate of the item.
      * @return The VAT rate of the item.
      */
-    public float getRateVAT() {
+    public Money getRateVAT() {
         return this.rateVAT;
     }
 
@@ -65,7 +67,7 @@ public class ItemDTO {
      * Gets the VAT amount of the item.
      * @return The VAT amount of the item.
      */
-    public float getAmountVAT(){
+    public Money getAmountVAT(){
         return this.amountVAT;
     }
 

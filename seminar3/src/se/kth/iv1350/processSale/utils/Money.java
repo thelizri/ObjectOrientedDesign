@@ -26,6 +26,22 @@ public class Money {
 
     /**
      * Creates a new instance of the Money class.
+     * @param amount The amount of money, as a double.
+     */
+    public Money(double amount) {
+        this.amount = new BigDecimal(amount);
+    }
+
+    /**
+     * Creates a new instance of the Money class.
+     * @param amount The amount of money, as a string.
+     */
+    public Money(String amount) {
+        this.amount = new BigDecimal(amount);
+    }
+
+    /**
+     * Creates a new instance of the Money class.
      * @param amount The amount of money, as an integer.
      */
     public Money(int amount) {
@@ -67,6 +83,15 @@ public class Money {
     }
 
     /**
+     * Multiplies this instance by a scalar value and returns the result as a new Money instance.
+     * @param scalar The scalar value to multiply by.
+     * @return A new Money instance representing the product of this instance and the scalar value.
+     */
+    public Money multiply(Money scalar) {
+        return new Money(this.amount.multiply(scalar.getAmount()));
+    }
+
+    /**
      * Returns a negative version of this instance as a new Money instance.
      * @return A new Money instance representing the negative value of this instance.
      */
@@ -90,6 +115,15 @@ public class Money {
      */
     public boolean isLessThan(Money other) {
         return this.amount.compareTo(other.amount) < 0;
+    }
+
+    /**
+     * Compares this instance with another Money instance.
+     * @param other The other Money instance to compare to.
+     * @return A negative integer, zero, or a positive integer as this instance is less than, equal to, or greater than the specified object.
+     */
+    public int compareTo(Money other) {
+        return this.amount.compareTo(other.amount);
     }
 
     /**

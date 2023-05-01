@@ -3,6 +3,7 @@ package se.kth.iv1350.processSale.controller;
 import se.kth.iv1350.processSale.integration.*;
 import se.kth.iv1350.processSale.model.*;
 import se.kth.iv1350.processSale.dto.*;
+import se.kth.iv1350.processSale.utils.Money;
 
 /**
  * The Controller class represents the controller in the point-of-sale system.
@@ -54,7 +55,7 @@ public class Controller {
      * Gets the total price of the current sale.
      * @return The total price of the current sale.
      */
-    public float getTotal() {
+    public Money getTotal() {
         return currentSale.getTotal();
     }
 
@@ -62,7 +63,7 @@ public class Controller {
      * Gets the remaining amount to be paid for the current sale.
      * @return The remaining amount to be paid for the current sale.
      */
-    public float getRemainingAmount() {
+    public Money getRemainingAmount() {
         return currentSale.getRemainingAmount();
     }
 
@@ -71,8 +72,8 @@ public class Controller {
      * @param customerID The identifier of the customer.
      * @return The amount of the discount to apply.
      */
-    public float requestDiscount(String customerID) {
-        float amount = discDb.checkDiscounts(currentSale.getSaleDTO(), customerID);
+    public Money requestDiscount(String customerID) {
+        Money amount = discDb.checkDiscounts(currentSale.getSaleDTO(), customerID);
         currentSale.applyDiscount(amount);
         return amount;
     }
@@ -82,7 +83,7 @@ public class Controller {
      * @param amount The amount of the payment to add.
      * @return The remaining amount to be paid for the current sale.
      */
-    public float pay(float amount) {
+    public Money pay(Money amount) {
         currentSale.pay(amount);
         return currentSale.getRemainingAmount();
     }

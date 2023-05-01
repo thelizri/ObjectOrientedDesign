@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import se.kth.iv1350.processSale.dto.*;
+import se.kth.iv1350.processSale.utils.Money;
 
 /**
  * The Sale class represents a sale in the point of sale system.
@@ -14,11 +15,11 @@ import se.kth.iv1350.processSale.dto.*;
 public class Sale {
     private LocalDateTime dateTime;
     private List<Item> itemList;
-    private float totalPrice;
-    private float discount;
-    private float totalVAT;
-    private float amountPaid;
-    private float change;
+    private Money totalPrice;
+    private Money discount;
+    private Money totalVAT;
+    private Money amountPaid;
+    private Money change;
 
     /**
      * Constructs a new instance of the Sale class with default values.
@@ -26,18 +27,18 @@ public class Sale {
     public Sale() {
         this.dateTime = LocalDateTime.now();
         this.itemList = new ArrayList<>();
-        this.totalPrice = 0;
-        this.totalVAT = 0;
-        this.amountPaid = 0;
-        this.change = 0;
-        this.discount = 0;
+        this.totalPrice = new Money(0);
+        this.totalVAT = new Money(0);
+        this.amountPaid = new Money(0);
+        this.change = new Money(0);
+        this.discount = new Money(0);
     }
 
     /**
      * Gets the total price of the sale.
      * @return The total price of the sale.
      */
-    public float getTotal() {
+    public Money getTotal() {
         return totalPrice;
     }
 
@@ -45,7 +46,7 @@ public class Sale {
      * Gets the amount paid for the sale.
      * @return The amount paid for the sale.
      */
-    public float getAmountPaid() {
+    public Money getAmountPaid() {
         return amountPaid;
     }
 
@@ -53,9 +54,12 @@ public class Sale {
      * Calculates and returns the remaining amount to be paid for the sale.
      * @return The remaining amount to be paid for the sale.
      */
-    public float getRemainingAmount() {
-        float result = totalPrice - discount - amountPaid > 0? totalPrice - discount - amountPaid: 0;
-        return result;
+    public Money getRemainingAmount() {
+        Money remaining = totalPrice.subtract(discount).subtract(amountPaid);
+        if (remaining.compareTo(new Money(0)) > 0){
+            return remaining;
+        }
+        return new Money(0);
     }
 
     /**
@@ -101,16 +105,16 @@ public class Sale {
     public void addItem(Item item, int quantity) {
         item.setQuantity(quantity);
         itemList.add(item);
-        int itemPrice = (int) (item.getPrice() * quantity);
-        totalPrice += itemPrice;
-        totalVAT += itemPrice * item.getRateVAT();
+        Money itemPrice = item.getPrice().multiply(new Money(quantity));
+        totalPrice = totalPrice.add(itemPrice);
+        totalVAT = totalVAT.add(itemPrice.multiply(item.getRateVAT()));
     }
 
     /**
      * Applies a discount to the sale.
      * @param amount The amount of the discount to apply.
      */
-    public void applyDiscount(float amount) {
+    public void applyDiscount(Money amount) {
         this.discount = amount;
     }
 
@@ -119,7 +123,7 @@ public class Sale {
      * @return true if the sale has been closed successfully, false otherwise.
      */
     public boolean closeSale(){
-        if (getRemainingAmount() > 0){
+        if (getRemainingAmount().compareTo(new Money(0)) > 0){
             return false;
         }
         return true;
@@ -129,8 +133,8 @@ public class Sale {
      * Adds a payment to the sale.
      * @param amount The amount of the payment to add to the sale.
      */
-    public void pay(float amount) {
-        amountPaid += amount;
+    public void pay(Money amount) {
+        amountPaid = amountPaid.add(amount);
     }
 }
 

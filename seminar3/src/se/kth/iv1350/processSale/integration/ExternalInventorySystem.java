@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.integration;
 import se.kth.iv1350.processSale.dto.SaleDTO;
 import se.kth.iv1350.processSale.model.Item;
+import se.kth.iv1350.processSale.utils.Money;
 
 /**
  A placeholder class to represent an external inventory system. It would be implemented with the actual system's APIs and endpoints.
@@ -29,6 +30,6 @@ public class ExternalInventorySystem {
      * @return An Item object representing the item.
      */
     public Item getItem(String itemIdentifier) {
-        return new Item(itemIdentifier, 100, "Milk", (float)0.06);
+        return new Item(itemIdentifier, new Money(100), "Milk", new Money(0.06));
     }
 }
