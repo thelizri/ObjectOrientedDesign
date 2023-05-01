@@ -52,14 +52,6 @@ public class Controller {
     }
 
     /**
-     * Gets the total price of the current sale.
-     * @return The total price of the current sale.
-     */
-    public Money getTotal() {
-        return currentSale.getTotal();
-    }
-
-    /**
      * Gets the remaining amount to be paid for the current sale.
      * @return The remaining amount to be paid for the current sale.
      */

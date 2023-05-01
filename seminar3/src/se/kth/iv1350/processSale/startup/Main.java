@@ -15,5 +15,6 @@ public class Main {
         Printer printer = new Printer();
         Controller controller = new Controller(invSys, accSys, printer, disDb);
         View view = new View(controller);
+        view.run();
     }
 }

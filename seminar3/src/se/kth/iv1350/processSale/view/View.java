@@ -21,7 +21,6 @@ public class View {
     public View(Controller controller) {
         this.controller = controller;
         scanner = new Scanner(System.in);
-        run();
     }
 
     /**

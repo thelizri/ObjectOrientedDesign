@@ -143,11 +143,7 @@ public class Money {
         return this.amount.compareTo(other.amount);
     }
 
-    /**
-     * Gets the amount of this instance as a BigDecimal.
-     * @return The amount of this instance as a BigDecimal.
-     */
-    public BigDecimal getAmount() {
+    private BigDecimal getAmount() {
         return this.amount;
     }
 

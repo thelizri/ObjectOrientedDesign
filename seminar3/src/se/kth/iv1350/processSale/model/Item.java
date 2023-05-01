@@ -8,16 +8,16 @@ import se.kth.iv1350.processSale.utils.Money;
  */
 public class Item {
     private final String itemIdentifier;
-    private final Money price;
+    private final Money price; //Price for a single unit
     private final String description;
     private final Money rateVAT; //There are three different VAT rates: 25%, 12% and 6%.
-    private final Money amountVAT; //Price*VATrate
+    private final Money amountVAT; //VAT for a single unit
     private int quantity;
 
     /**
      * Creates a new instance of the Item class.
      * @param itemIdentifier The identifier of the item.
-     * @param price The price of the item.
+     * @param price The price of the item (single unit).
      * @param description The description of the item.
      * @param rateVAT The VAT rate of the item.
      */
@@ -92,5 +92,21 @@ public class Item {
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * Calculates the total price of the item based on the price and quantity.
+     * @return The total price of the item, as a Money instance.
+     */
+    public Money getTotalPrice(){
+        return this.price.multiply(this.quantity);
+    }
+
+    /**
+     * Calculates the total VAT amount of the item based on the price, quantity, and VAT rate.
+     * @return The total VAT amount of the item, as a Money instance.
+     */
+    public Money getTotalVAT(){
+        return this.price.multiply(this.quantity).multiply(this.rateVAT);
     }
 }

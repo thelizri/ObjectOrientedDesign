@@ -115,9 +115,8 @@ public class Sale {
     public void addItem(Item item, int quantity) {
         item.setQuantity(quantity);
         itemList.add(item);
-        Money itemPrice = item.getPrice().multiply(quantity);
-        totalPrice = totalPrice.add(itemPrice);
-        totalVAT = totalVAT.add(itemPrice.multiply(item.getRateVAT()));
+        totalPrice = totalPrice.add(item.getTotalPrice());
+        totalVAT = totalVAT.add(item.getTotalVAT());
     }
 
     /**
