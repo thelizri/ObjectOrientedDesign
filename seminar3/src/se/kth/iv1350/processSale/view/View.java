@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.view;
 
 import se.kth.iv1350.processSale.controller.Controller;
+import se.kth.iv1350.processSale.dto.ItemDTO;
 import se.kth.iv1350.processSale.utils.Money;
 
 import java.util.Scanner;
@@ -60,7 +61,10 @@ public class View {
         if (tokens.length == 3) {
             String itemID = tokens[1];
             int quantity = Integer.parseInt(tokens[2]);
-            System.out.println(controller.addItem(itemID, quantity));
+            ItemDTO itemDTO = controller.addItem(itemID, quantity);
+            System.out.println(itemDTO.getItemIdentifier() + " " + itemDTO.getQuantity());
+            Money runningTotal = controller.getTotal();
+            System.out.printf("Running total: %.2f Kr\n", runningTotal.getAmountFloat());
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: addItem <itemID> <quantity>");
@@ -74,7 +78,7 @@ public class View {
             if (discount.isGreaterThanZero()) {
                 System.out.printf("Applied discount: %.2f Kr\n", discount.getAmountFloat());
                 Money remaining = controller.getRemainingAmount();
-                System.out.printf("Remaining Total: %.2f Kr\n", remaining.getAmountFloat());
+                System.out.printf("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
             } else {
                 System.out.println("No discounts available.");
             }
@@ -88,7 +92,7 @@ public class View {
         if (tokens.length == 2) {
             Money amount = new Money(tokens[1]);
             Money remaining = controller.pay(amount);
-            System.out.printf("Remaining: %.2f Kr\n", remaining.getAmountFloat());
+            System.out.printf("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: pay <amount>");
@@ -99,7 +103,7 @@ public class View {
         if (!controller.closeSale()) {
             System.out.println("You must finish paying before you can close the sale.");
             Money remaining = controller.getRemainingAmount();
-            System.out.printf("Remaining Total: %.2s Kr\n", remaining.getAmountFloat());
+            System.out.printf("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
         }
     }
 

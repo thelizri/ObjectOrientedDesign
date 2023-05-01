@@ -1,5 +1,6 @@
 package se.kth.iv1350.processSale.controller;
 
+import se.kth.iv1350.processSale.dto.ItemDTO;
 import se.kth.iv1350.processSale.integration.DiscountDatabase;
 import se.kth.iv1350.processSale.integration.ExternalAccountingSystem;
 import se.kth.iv1350.processSale.integration.ExternalInventorySystem;
@@ -44,16 +45,25 @@ public class Controller {
     }
 
     /**
+     * Returns the running total of the current sale.
+     *
+     * @return the running total of the sale.
+     */
+    public Money getTotal() {
+        return currentSale.getTotal();
+    }
+
+    /**
      * Adds an item to the current sale.
      *
      * @param itemID   The identifier of the item to add.
      * @param quantity The quantity of the item to add.
      * @return A string representing the added item and total price of the sale so far.
      */
-    public String addItem(String itemID, int quantity) {
+    public ItemDTO addItem(String itemID, int quantity) {
         Item item = invSys.getItem(itemID);
         currentSale.addItem(item, quantity);
-        return item.getDescription() + " " + quantity + "\nTotal: " + currentSale.getTotal() + " kr";
+        return item.getItemDTO();
     }
 
     /**

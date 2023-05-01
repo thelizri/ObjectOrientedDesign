@@ -9,6 +9,7 @@ import se.kth.iv1350.processSale.utils.Money;
 public class Item {
     private final String itemIdentifier;
     private final Money price; //Price for a single unit
+    private final Money priceExcludingVAT;
     private final String description;
     private final Money rateVAT; //There are three different VAT rates: 25%, 12% and 6%.
     private final Money amountVAT; //VAT for a single unit
@@ -17,18 +18,28 @@ public class Item {
     /**
      * Creates a new instance of the Item class.
      *
-     * @param itemIdentifier The identifier of the item.
-     * @param price          The price of the item (single unit).
-     * @param description    The description of the item.
-     * @param rateVAT        The VAT rate of the item.
+     * @param itemIdentifier    The identifier of the item.
+     * @param priceExcludingVAT The price of the item excluding VAT.
+     * @param description       The description of the item.
+     * @param rateVAT           The VAT rate of the item.
      */
-    public Item(String itemIdentifier, Money price, String description, Money rateVAT) {
+    public Item(String itemIdentifier, Money priceExcludingVAT, String description, Money rateVAT) {
         this.itemIdentifier = itemIdentifier;
-        this.price = price;
+        this.priceExcludingVAT = priceExcludingVAT;
         this.description = description;
         this.rateVAT = rateVAT;
         this.quantity = 0;
-        this.amountVAT = price.multiply(rateVAT);
+        this.amountVAT = priceExcludingVAT.multiply(rateVAT);
+        this.price = priceExcludingVAT.add(amountVAT);
+    }
+
+    /**
+     * Gets the price of the item excluding VAT.
+     *
+     * @return The price of the item excluding VAT.
+     */
+    public Money getPriceExcludingVAT() {
+        return priceExcludingVAT;
     }
 
     /**
@@ -118,6 +129,6 @@ public class Item {
      * @return The total VAT amount of the item, as a Money instance.
      */
     public Money getTotalVAT() {
-        return this.price.multiply(this.quantity).multiply(this.rateVAT);
+        return this.amountVAT.multiply(this.quantity);
     }
 }
