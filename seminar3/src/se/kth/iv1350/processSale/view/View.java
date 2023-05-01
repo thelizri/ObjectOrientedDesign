@@ -62,9 +62,14 @@ public class View {
             String itemID = tokens[1];
             int quantity = Integer.parseInt(tokens[2]);
             ItemDTO itemDTO = controller.addItem(itemID, quantity);
-            System.out.println(itemDTO.getDescription() + " " + itemDTO.getQuantity());
-            Money runningTotal = controller.getTotal();
-            System.out.printf("Running total: %.2f Kr\n", runningTotal.getAmountFloat());
+            if(itemDTO != null){
+                System.out.println(itemDTO.getDescription() + " " + itemDTO.getQuantity());
+                Money runningTotal = controller.getTotal();
+                System.out.printf("Running total: %.2f Kr\n", runningTotal.getAmountFloat());
+            }
+            else{
+                System.out.println("Error while scanning barcode. Try again.");
+            }
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: addItem <itemID> <quantity>");

@@ -124,21 +124,22 @@ public class Sale {
      * @param item     The item to add to the sale.
      * @param quantity The quantity of the item to add to the sale.
      */
-    public void addItem(Item item, int quantity) {
+    public Item addItem(Item item, int quantity) {
         item.setQuantity(quantity);
-        addItemToList(item, quantity);
         totalPrice = totalPrice.add(item.getTotalPrice());
         totalVAT = totalVAT.add(item.getTotalVAT());
+        return addItemToList(item, quantity);
     }
 
-    private void addItemToList(Item item, int quantity) {
+    private Item addItemToList(Item item, int quantity) {
         for (Item listItem: itemList){
             if (item.equals(listItem)){
                 listItem.addQuantity(quantity);
-                return;
+                return listItem;
             }
         }
         itemList.add(item);
+        return item;
     }
 
     /**

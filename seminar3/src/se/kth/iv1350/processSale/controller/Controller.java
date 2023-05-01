@@ -62,7 +62,8 @@ public class Controller {
      */
     public ItemDTO addItem(String itemID, int quantity) {
         Item item = invSys.getItem(itemID);
-        currentSale.addItem(item, quantity);
+        if (item == null) return null;
+        item = currentSale.addItem(item, quantity);
         return item.getItemDTO();
     }
 
