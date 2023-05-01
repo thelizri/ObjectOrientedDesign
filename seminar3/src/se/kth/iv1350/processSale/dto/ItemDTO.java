@@ -8,9 +8,11 @@ import se.kth.iv1350.processSale.utils.Money;
 public class ItemDTO {
     private final String itemIdentifier;
     private final Money price;
+    private final Money totalPrice;
     private final String description;
     private final Money rateVAT;
     private final Money amountVAT;
+    private final Money totalVat;
     private final int quantity;
 
     /**
@@ -23,13 +25,33 @@ public class ItemDTO {
      * @param amountVAT      The VAT amount of the item.
      * @param quantity       The quantity of the item.
      */
-    public ItemDTO(String itemIdentifier, Money price, String description, Money rateVAT, Money amountVAT, int quantity) {
+    public ItemDTO(String itemIdentifier, Money price, String description, Money rateVAT, Money amountVAT, int quantity, Money totalPrice, Money totalVat) {
         this.itemIdentifier = itemIdentifier;
         this.price = price;
         this.description = description;
         this.rateVAT = rateVAT;
         this.amountVAT = amountVAT;
         this.quantity = quantity;
+        this.totalPrice = totalPrice;
+        this.totalVat = totalVat;
+    }
+
+    /**
+     * Gets the total price. In other words, the price of the item multiplied the amount of units bought.
+     *
+     * @return The total price.
+     */
+    public Money getTotalPrice() {
+        return totalPrice;
+    }
+
+    /**
+     * Gets the total VAT. In other words, the VAT of the item multiplied the amount of units bought.
+     *
+     * @return The total VAT.
+     */
+    public Money getTotalVat() {
+        return totalVat;
     }
 
     /**

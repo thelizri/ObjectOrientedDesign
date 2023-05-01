@@ -37,7 +37,7 @@ public class Item {
      * @return An ItemDTO instance representing this item.
      */
     public ItemDTO getItemDTO() {
-        return new ItemDTO(this.itemIdentifier, this.price, this.description, this.rateVAT, this.amountVAT, this.quantity);
+        return new ItemDTO(this.itemIdentifier, this.price, this.description, this.rateVAT, this.amountVAT, this.quantity, this.getTotalPrice(), this.getAmountVAT());
     }
 
     /**
