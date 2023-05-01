@@ -10,6 +10,7 @@ public class Money {
 
     /**
      * Creates a new instance of the Money class.
+     *
      * @param amount The amount of money, as a BigDecimal.
      */
     public Money(BigDecimal amount) {
@@ -18,6 +19,7 @@ public class Money {
 
     /**
      * Creates a new instance of the Money class.
+     *
      * @param amount The amount of money, as a double.
      */
     public Money(double amount) {
@@ -26,6 +28,7 @@ public class Money {
 
     /**
      * Creates a new instance of the Money class.
+     *
      * @param amount The amount of money, as a string.
      */
     public Money(String amount) {
@@ -34,6 +37,7 @@ public class Money {
 
     /**
      * Creates a new instance of the Money class.
+     *
      * @param amount The amount of money, as an integer.
      */
     public Money(int amount) {
@@ -49,6 +53,7 @@ public class Money {
 
     /**
      * Adds another Money instance to this instance and returns the result as a new Money instance.
+     *
      * @param other The other Money instance to add.
      * @return A new Money instance representing the sum of this instance and the other instance.
      */
@@ -58,6 +63,7 @@ public class Money {
 
     /**
      * Subtracts another Money instance from this instance and returns the result as a new Money instance.
+     *
      * @param other The other Money instance to subtract.
      * @return A new Money instance representing the difference between this instance and the other instance.
      */
@@ -67,6 +73,7 @@ public class Money {
 
     /**
      * Multiplies this instance by a scalar value and returns the result as a new Money instance.
+     *
      * @param scalar The scalar value to multiply by.
      * @return A new Money instance representing the product of this instance and the scalar value.
      */
@@ -76,6 +83,7 @@ public class Money {
 
     /**
      * Multiplies this instance by a scalar value and returns the result as a new Money instance.
+     *
      * @param scalar The scalar value to multiply by.
      * @return A new Money instance representing the product of this instance and the scalar value.
      */
@@ -85,6 +93,7 @@ public class Money {
 
     /**
      * Returns a negative version of this instance as a new Money instance.
+     *
      * @return A new Money instance representing the negative value of this instance.
      */
     public Money negate() {
@@ -93,6 +102,7 @@ public class Money {
 
     /**
      * Checks if this instance is greater than 0.
+     *
      * @return true if this instance is greater than 0, false otherwise.
      */
     public boolean isGreaterThanZero() {
@@ -101,6 +111,7 @@ public class Money {
 
     /**
      * Gets the amount of this instance as a float.
+     *
      * @return The amount of this instance as a float.
      */
     public float getAmountFloat() {
@@ -109,6 +120,7 @@ public class Money {
 
     /**
      * Gets the amount of this instance as a string.
+     *
      * @return The amount of this instance as a string.
      */
     @Override

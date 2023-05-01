@@ -1,5 +1,6 @@
 package se.kth.iv1350.processSale.integration;
-import se.kth.iv1350.processSale.dto.*;
+
+import se.kth.iv1350.processSale.dto.SaleDTO;
 import se.kth.iv1350.processSale.utils.Money;
 
 /**
@@ -16,8 +17,9 @@ public class DiscountDatabase {
 
     /**
      * Checks for applicable discounts for the current sale and customer.
+     *
      * @param currentSale The current sale to check for discounts.
-     * @param customerID The ID of the customer to check for discounts.
+     * @param customerID  The ID of the customer to check for discounts.
      * @return The amount of discount, if applicable.
      */
     public Money checkDiscounts(SaleDTO currentSale, String customerID) {

@@ -15,12 +15,13 @@ public class ItemDTO {
 
     /**
      * Creates a new instance of the ItemDTO class.
+     *
      * @param itemIdentifier The identifier of the item.
-     * @param price The price of the item.
-     * @param description The description of the item.
-     * @param rateVAT The VAT rate of the item.
-     * @param amountVAT The VAT amount of the item.
-     * @param quantity The quantity of the item.
+     * @param price          The price of the item.
+     * @param description    The description of the item.
+     * @param rateVAT        The VAT rate of the item.
+     * @param amountVAT      The VAT amount of the item.
+     * @param quantity       The quantity of the item.
      */
     public ItemDTO(String itemIdentifier, Money price, String description, Money rateVAT, Money amountVAT, int quantity) {
         this.itemIdentifier = itemIdentifier;
@@ -33,6 +34,7 @@ public class ItemDTO {
 
     /**
      * Gets the identifier of the item.
+     *
      * @return The identifier of the item.
      */
     public String getItemIdentifier() {
@@ -41,6 +43,7 @@ public class ItemDTO {
 
     /**
      * Gets the price of the item.
+     *
      * @return The price of the item.
      */
     public Money getPrice() {
@@ -49,6 +52,7 @@ public class ItemDTO {
 
     /**
      * Gets the description of the item.
+     *
      * @return The description of the item.
      */
     public String getDescription() {
@@ -57,6 +61,7 @@ public class ItemDTO {
 
     /**
      * Gets the VAT rate of the item.
+     *
      * @return The VAT rate of the item.
      */
     public Money getRateVAT() {
@@ -65,14 +70,16 @@ public class ItemDTO {
 
     /**
      * Gets the VAT amount of the item.
+     *
      * @return The VAT amount of the item.
      */
-    public Money getAmountVAT(){
+    public Money getAmountVAT() {
         return this.amountVAT;
     }
 
     /**
      * Gets the quantity of the item.
+     *
      * @return The quantity of the item.
      */
     public int getQuantity() {

@@ -3,7 +3,6 @@ package se.kth.iv1350.processSale.view;
 import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.utils.Money;
 
-import java.math.BigDecimal;
 import java.util.Scanner;
 
 /**
@@ -11,11 +10,12 @@ import java.util.Scanner;
  * It's a simple command line interface.
  */
 public class View {
-    private Controller controller;
-    private Scanner scanner;
+    private final Controller controller;
+    private final Scanner scanner;
 
     /**
      * Creates a new instance of the View class with the specified controller.
+     *
      * @param controller The controller to use for the view.
      */
     public View(Controller controller) {
@@ -84,12 +84,11 @@ public class View {
         if (tokens.length == 2) {
             String customerID = tokens[1];
             Money discount = controller.requestDiscount(customerID);
-            if (discount.isGreaterThanZero()){
+            if (discount.isGreaterThanZero()) {
                 System.out.printf("Applied discount: %.2f Kr\n", discount.getAmountFloat());
                 Money remaining = controller.getRemainingAmount();
                 System.out.printf("Remaining Total: %.2f Kr\n", remaining.getAmountFloat());
-            }
-            else{
+            } else {
                 System.out.println("No discounts available.");
             }
         } else {

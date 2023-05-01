@@ -1,25 +1,26 @@
 package se.kth.iv1350.processSale.model;
 
+import se.kth.iv1350.processSale.dto.SaleDTO;
+import se.kth.iv1350.processSale.utils.Money;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import se.kth.iv1350.processSale.dto.*;
-import se.kth.iv1350.processSale.utils.Money;
 
 /**
  * The Sale class represents a sale in the point of sale system.
- *  It contains information about the items in the sale, the total price of the sale,
- *  discounts applied, amount paid, and change given.
+ * It contains information about the items in the sale, the total price of the sale,
+ * discounts applied, amount paid, and change given.
  */
 public class Sale {
-    private LocalDateTime dateTime;
-    private List<Item> itemList;
+    private final LocalDateTime dateTime;
+    private final List<Item> itemList;
     private Money totalPrice;
     private Money discount;
     private Money totalVAT;
     private Money amountPaid;
-    private Money change;
+    private final Money change;
 
     /**
      * Constructs a new instance of the Sale class with default values.
@@ -36,6 +37,7 @@ public class Sale {
 
     /**
      * Gets the total price of the sale.
+     *
      * @return The total price of the sale.
      */
     public Money getTotal() {
@@ -44,6 +46,7 @@ public class Sale {
 
     /**
      * Gets the amount paid for the sale.
+     *
      * @return The amount paid for the sale.
      */
     public Money getAmountPaid() {
@@ -52,11 +55,12 @@ public class Sale {
 
     /**
      * Calculates and returns the remaining amount to be paid for the sale.
+     *
      * @return The remaining amount to be paid for the sale.
      */
     public Money getRemainingAmount() {
         Money remaining = totalPrice.subtract(discount).subtract(amountPaid);
-        if (remaining.isGreaterThanZero()){
+        if (remaining.isGreaterThanZero()) {
             return remaining;
         }
         return new Money(0);
@@ -64,6 +68,7 @@ public class Sale {
 
     /**
      * Calculates and returns the change to give the customer.
+     *
      * @return The amount of change the customer should receive back.
      */
     public Money getChange() {
@@ -73,14 +78,16 @@ public class Sale {
 
     /**
      * Gets a SaleDTO object representing the sale.
+     *
      * @return A SaleDTO object representing the sale.
      */
     public SaleDTO getSaleDTO() {
-        return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, change);
+        return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, this.getChange());
     }
 
     /**
      * Generates a receipt string for the sale.
+     *
      * @return A receipt string for the sale.
      */
     public String getReceipt() {
@@ -109,7 +116,8 @@ public class Sale {
 
     /**
      * Adds an item to the sale with the specified quantity.
-     * @param item The item to add to the sale.
+     *
+     * @param item     The item to add to the sale.
      * @param quantity The quantity of the item to add to the sale.
      */
     public void addItem(Item item, int quantity) {
@@ -121,6 +129,7 @@ public class Sale {
 
     /**
      * Applies a discount to the sale.
+     *
      * @param amount The amount of the discount to apply.
      */
     public void applyDiscount(Money amount) {
@@ -129,17 +138,16 @@ public class Sale {
 
     /**
      * Closes the sale, indicating that it is complete.
+     *
      * @return true if the sale has been closed successfully, false otherwise.
      */
-    public boolean closeSale(){
-        if (this.getRemainingAmount().isGreaterThanZero()){
-            return false;
-        }
-        return true;
+    public boolean closeSale() {
+        return !this.getRemainingAmount().isGreaterThanZero();
     }
 
     /**
      * Adds a payment to the sale.
+     *
      * @param amount The amount of the payment to add to the sale.
      */
     public void pay(Money amount) {

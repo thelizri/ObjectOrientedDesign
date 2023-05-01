@@ -1,8 +1,11 @@
 package se.kth.iv1350.processSale.controller;
 
-import se.kth.iv1350.processSale.integration.*;
-import se.kth.iv1350.processSale.model.*;
-import se.kth.iv1350.processSale.dto.*;
+import se.kth.iv1350.processSale.integration.DiscountDatabase;
+import se.kth.iv1350.processSale.integration.ExternalAccountingSystem;
+import se.kth.iv1350.processSale.integration.ExternalInventorySystem;
+import se.kth.iv1350.processSale.integration.Printer;
+import se.kth.iv1350.processSale.model.Item;
+import se.kth.iv1350.processSale.model.Sale;
 import se.kth.iv1350.processSale.utils.Money;
 
 /**
@@ -10,18 +13,19 @@ import se.kth.iv1350.processSale.utils.Money;
  * It is responsible for coordinating interactions between the view, model, and external systems.
  */
 public class Controller {
-    private ExternalInventorySystem invSys;
-    private ExternalAccountingSystem accSys;
-    private Printer printer;
-    private DiscountDatabase discDb;
+    private final ExternalInventorySystem invSys;
+    private final ExternalAccountingSystem accSys;
+    private final Printer printer;
+    private final DiscountDatabase discDb;
     private Sale currentSale;
 
     /**
      * Constructs a new instance of the Controller class.
-     * @param invSys The external inventory system.
-     * @param accSys The external accounting system.
+     *
+     * @param invSys  The external inventory system.
+     * @param accSys  The external accounting system.
      * @param printer The printer for printing receipts.
-     * @param discDb The discount database for checking applicable discounts.
+     * @param discDb  The discount database for checking applicable discounts.
      */
     public Controller(ExternalInventorySystem invSys, ExternalAccountingSystem accSys, Printer printer, DiscountDatabase discDb) {
         this.invSys = invSys;
@@ -34,25 +38,27 @@ public class Controller {
      * Creates a new sale.
      */
     public void createNewSale() {
-        if (currentSale == null){
+        if (currentSale == null) {
             currentSale = new Sale();
         }
     }
 
     /**
      * Adds an item to the current sale.
-     * @param itemID The identifier of the item to add.
+     *
+     * @param itemID   The identifier of the item to add.
      * @param quantity The quantity of the item to add.
      * @return A string representing the added item and total price of the sale so far.
      */
     public String addItem(String itemID, int quantity) {
         Item item = invSys.getItem(itemID);
         currentSale.addItem(item, quantity);
-        return item.getDescription()+" "+quantity+"\nTotal: "+currentSale.getTotal()+" kr";
+        return item.getDescription() + " " + quantity + "\nTotal: " + currentSale.getTotal() + " kr";
     }
 
     /**
      * Gets the remaining amount to be paid for the current sale.
+     *
      * @return The remaining amount to be paid for the current sale.
      */
     public Money getRemainingAmount() {
@@ -61,6 +67,7 @@ public class Controller {
 
     /**
      * Requests a discount for the current sale and customer.
+     *
      * @param customerID The identifier of the customer.
      * @return The amount of the discount to apply.
      */
@@ -72,6 +79,7 @@ public class Controller {
 
     /**
      * Adds a payment to the current sale.
+     *
      * @param amount The amount of the payment to add.
      * @return The remaining amount to be paid for the current sale.
      */
@@ -82,10 +90,11 @@ public class Controller {
 
     /**
      * Closes the current sale, pushing the sale information to external systems.
+     *
      * @return true if the sale is closed successfully, false otherwise.
      */
-    public boolean closeSale(){
-        if (currentSale.closeSale()){
+    public boolean closeSale() {
+        if (currentSale.closeSale()) {
             pushSaleToExternalSystems();
             this.currentSale = null;
             return true;

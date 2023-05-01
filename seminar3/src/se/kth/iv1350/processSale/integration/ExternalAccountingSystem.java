@@ -1,6 +1,6 @@
 package se.kth.iv1350.processSale.integration;
 
-import se.kth.iv1350.processSale.dto.*;
+import se.kth.iv1350.processSale.dto.SaleDTO;
 
 /**
  * This is a placeholder class to represent an external accounting system.

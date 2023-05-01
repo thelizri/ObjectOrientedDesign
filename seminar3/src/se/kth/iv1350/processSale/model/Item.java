@@ -16,10 +16,11 @@ public class Item {
 
     /**
      * Creates a new instance of the Item class.
+     *
      * @param itemIdentifier The identifier of the item.
-     * @param price The price of the item (single unit).
-     * @param description The description of the item.
-     * @param rateVAT The VAT rate of the item.
+     * @param price          The price of the item (single unit).
+     * @param description    The description of the item.
+     * @param rateVAT        The VAT rate of the item.
      */
     public Item(String itemIdentifier, Money price, String description, Money rateVAT) {
         this.itemIdentifier = itemIdentifier;
@@ -32,14 +33,16 @@ public class Item {
 
     /**
      * Returns a DTO (data transfer object) for this item, containing only the information needed to represent the item in a sale.
+     *
      * @return An ItemDTO instance representing this item.
      */
-    public ItemDTO getItemDTO(){
+    public ItemDTO getItemDTO() {
         return new ItemDTO(this.itemIdentifier, this.price, this.description, this.rateVAT, this.amountVAT, this.quantity);
     }
 
     /**
      * Gets the identifier of the item.
+     *
      * @return The identifier of the item.
      */
     public String getItemIdentifier() {
@@ -48,6 +51,7 @@ public class Item {
 
     /**
      * Gets the price of the item.
+     *
      * @return The price of the item.
      */
     public Money getPrice() {
@@ -56,6 +60,7 @@ public class Item {
 
     /**
      * Gets the description of the item.
+     *
      * @return The description of the item.
      */
     public String getDescription() {
@@ -64,6 +69,7 @@ public class Item {
 
     /**
      * Gets the VAT rate of the item.
+     *
      * @return The VAT rate of the item.
      */
     public Money getRateVAT() {
@@ -72,14 +78,16 @@ public class Item {
 
     /**
      * Gets the VAT amount of the item.
+     *
      * @return The VAT amount of the item.
      */
-    public Money getAmountVAT(){
+    public Money getAmountVAT() {
         return this.amountVAT;
     }
 
     /**
      * Gets the quantity of the item.
+     *
      * @return The quantity of the item.
      */
     public int getQuantity() {
@@ -88,6 +96,7 @@ public class Item {
 
     /**
      * Sets the quantity of the item.
+     *
      * @param quantity The quantity to set.
      */
     public void setQuantity(int quantity) {
@@ -96,17 +105,19 @@ public class Item {
 
     /**
      * Calculates the total price of the item based on the price and quantity.
+     *
      * @return The total price of the item, as a Money instance.
      */
-    public Money getTotalPrice(){
+    public Money getTotalPrice() {
         return this.price.multiply(this.quantity);
     }
 
     /**
      * Calculates the total VAT amount of the item based on the price, quantity, and VAT rate.
+     *
      * @return The total VAT amount of the item, as a Money instance.
      */
-    public Money getTotalVAT(){
+    public Money getTotalVAT() {
         return this.price.multiply(this.quantity).multiply(this.rateVAT);
     }
 }
