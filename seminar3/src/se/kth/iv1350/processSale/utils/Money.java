@@ -127,6 +127,14 @@ public class Money {
     }
 
     /**
+     * Checks if this instance is greater than 0.
+     * @return true if this instance is greater than 0, false otherwise.
+     */
+    public boolean isGreaterThanZero() {
+        return this.amount.compareTo(BigDecimal.ZERO) > 0;
+    }
+
+    /**
      * Compares this instance with another Money instance.
      * @param other The other Money instance to compare to.
      * @return A negative integer, zero, or a positive integer as this instance is less than, equal to, or greater than the specified object.

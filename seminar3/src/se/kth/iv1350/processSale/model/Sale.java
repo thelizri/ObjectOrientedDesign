@@ -56,7 +56,7 @@ public class Sale {
      */
     public Money getRemainingAmount() {
         Money remaining = totalPrice.subtract(discount).subtract(amountPaid);
-        if (remaining.isGreaterThan(new Money(0))){
+        if (remaining.isGreaterThanZero()){
             return remaining;
         }
         return new Money(0);
@@ -115,7 +115,7 @@ public class Sale {
     public void addItem(Item item, int quantity) {
         item.setQuantity(quantity);
         itemList.add(item);
-        Money itemPrice = item.getPrice().multiply(new Money(quantity));
+        Money itemPrice = item.getPrice().multiply(quantity);
         totalPrice = totalPrice.add(itemPrice);
         totalVAT = totalVAT.add(itemPrice.multiply(item.getRateVAT()));
     }
@@ -133,7 +133,7 @@ public class Sale {
      * @return true if the sale has been closed successfully, false otherwise.
      */
     public boolean closeSale(){
-        if (getRemainingAmount().compareTo(new Money(0)) > 0){
+        if (this.getRemainingAmount().isGreaterThanZero()){
             return false;
         }
         return true;

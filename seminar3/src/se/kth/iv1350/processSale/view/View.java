@@ -85,7 +85,7 @@ public class View {
         if (tokens.length == 2) {
             String customerID = tokens[1];
             Money discount = controller.requestDiscount(customerID);
-            if (discount.isGreaterThan(new Money(0))){
+            if (discount.isGreaterThanZero()){
                 System.out.printf("Applied discount: %.2f Kr\n", discount.getAmountFloat());
                 Money remaining = controller.getRemainingAmount();
                 System.out.printf("Remaining Total: %.2f Kr\n", remaining.getAmountFloat());
