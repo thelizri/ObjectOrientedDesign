@@ -28,11 +28,11 @@ public class Sale {
     public Sale() {
         this.dateTime = LocalDateTime.now();
         this.itemList = new ArrayList<>();
-        this.totalPrice = new Money(0);
-        this.totalVAT = new Money(0);
-        this.amountPaid = new Money(0);
-        this.change = new Money(0);
-        this.discount = new Money(0);
+        this.totalPrice = new Money();
+        this.totalVAT = new Money();
+        this.amountPaid = new Money();
+        this.change = new Money();
+        this.discount = new Money();
     }
 
     /**
@@ -63,7 +63,7 @@ public class Sale {
         if (remaining.isGreaterThanZero()) {
             return remaining;
         }
-        return new Money(0);
+        return new Money();
     }
 
     /**
