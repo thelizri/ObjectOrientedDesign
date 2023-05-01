@@ -32,30 +32,17 @@ public class View {
             String command = scanner.nextLine();
             String[] tokens = command.split(" ");
             switch (tokens[0]) {
-                case "startSale":
-                    startNewSale();
-                    break;
-                case "exit":
+                case "startSale" -> startNewSale();
+                case "exit" -> {
                     exitProgram();
                     return;
-                case "addItem":
-                    addItem(tokens);
-                    break;
-                case "discount":
-                    requestDiscount(tokens);
-                    break;
-                case "pay":
-                    makePayment(tokens);
-                    break;
-                case "closeSale":
-                    closeSale();
-                    break;
-                case "help":
-                    displayHelp();
-                    break;
-                default:
-                    System.out.println("Invalid command. Type 'help' if you're stuck.");
-                    break;
+                }
+                case "addItem" -> addItem(tokens);
+                case "discount" -> requestDiscount(tokens);
+                case "pay" -> makePayment(tokens);
+                case "closeSale" -> closeSale();
+                case "help" -> displayHelp();
+                default -> System.out.println("Invalid command. Type 'help' if you're stuck.");
             }
         }
     }

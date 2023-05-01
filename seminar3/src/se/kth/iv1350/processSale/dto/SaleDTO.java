@@ -31,7 +31,7 @@ public class SaleDTO {
      */
     public SaleDTO(LocalDateTime dateTime, List<Item> itemList, Money totalPrice, Money totalVAT, Money amountPaid, Money change) {
         this.dateTime = dateTime;
-        this.itemList = new ArrayList<ItemDTO>();
+        this.itemList = new ArrayList<>();
         for (Item item : itemList) {
             this.itemList.add(item.getItemDTO());
         }

@@ -20,7 +20,7 @@ public class Sale {
     private Money discount;
     private Money totalVAT;
     private Money amountPaid;
-    private final Money change;
+    private Money change;
 
     /**
      * Constructs a new instance of the Sale class with default values.
