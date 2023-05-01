@@ -85,12 +85,13 @@ public class View {
         if (tokens.length == 2) {
             String customerID = tokens[1];
             Money discount = controller.requestDiscount(customerID);
-            if (discount.isLessThan(new Money(1))) {
-                System.out.println("No discounts available.");
-            } else {
-                System.out.printf("Applied discount: %.2s Kr\n", discount);
+            if (discount.isGreaterThan(new Money(0))){
+                System.out.printf("Applied discount: %.2f Kr\n", discount.getAmountFloat());
                 Money remaining = controller.getRemainingAmount();
-                System.out.printf("Remaining Total: %.2s Kr\n", remaining);
+                System.out.printf("Remaining Total: %.2f Kr\n", remaining.getAmountFloat());
+            }
+            else{
+                System.out.println("No discounts available.");
             }
         } else {
             System.out.println("Invalid command");
@@ -102,7 +103,7 @@ public class View {
         if (tokens.length == 2) {
             Money amount = new Money(tokens[1]);
             Money remaining = controller.pay(amount);
-            System.out.printf("Remaining: %.2f Kr\n", remaining);
+            System.out.printf("Remaining: %.2f Kr\n", remaining.getAmountFloat());
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: pay <amount>");
@@ -113,7 +114,7 @@ public class View {
         if (!controller.closeSale()) {
             System.out.println("You must finish paying before you can close the sale.");
             Money remaining = controller.getRemainingAmount();
-            System.out.printf("Remaining Total: %.2s Kr\n", remaining);
+            System.out.printf("Remaining Total: %.2s Kr\n", remaining.getAmountFloat());
         }
     }
 

@@ -56,10 +56,19 @@ public class Sale {
      */
     public Money getRemainingAmount() {
         Money remaining = totalPrice.subtract(discount).subtract(amountPaid);
-        if (remaining.compareTo(new Money(0)) > 0){
+        if (remaining.isGreaterThan(new Money(0))){
             return remaining;
         }
         return new Money(0);
+    }
+
+    /**
+     * Calculates and returns the change to give the customer.
+     * @return The amount of change the customer should receive back.
+     */
+    public Money getChange() {
+        this.discount = amountPaid.subtract(totalPrice).subtract(discount);
+        return this.discount;
     }
 
     /**
@@ -83,15 +92,16 @@ public class Sale {
 
         // Add item information
         for (Item item : itemList) {
-            receiptBuilder.append(String.format("%-20s %-3d %6.2f kr\n", item.getDescription(), item.getQuantity(), item.getPrice() * item.getQuantity()));
+            Money itemPriceTotal = item.getPrice().multiply(item.getQuantity());
+            receiptBuilder.append(String.format("%-20s %-3d %6.2f kr\n", item.getDescription(), item.getQuantity(), itemPriceTotal.getAmountFloat()));
         }
 
         // Add summary information
-        receiptBuilder.append(String.format("\n%-20s %10.2f kr\n", "Total price:", totalPrice));
-        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", -discount));
-        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Total VAT:", totalVAT));
-        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Amount paid:", amountPaid));
-        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Change:", (amountPaid - totalPrice + discount)));
+        receiptBuilder.append(String.format("\n%-20s %10.2f kr\n", "Total price:", totalPrice.getAmountFloat()));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", discount.negate().getAmountFloat()));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Total VAT:", totalVAT.getAmountFloat()));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Amount paid:", amountPaid.getAmountFloat()));
+        receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Change:", this.getChange().getAmountFloat()));
 
         return receiptBuilder.toString();
     }

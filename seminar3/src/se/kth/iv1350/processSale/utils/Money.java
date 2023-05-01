@@ -87,6 +87,15 @@ public class Money {
      * @param scalar The scalar value to multiply by.
      * @return A new Money instance representing the product of this instance and the scalar value.
      */
+    public Money multiply(int scalar) {
+        return new Money(this.amount.multiply(new BigDecimal(scalar)));
+    }
+
+    /**
+     * Multiplies this instance by a scalar value and returns the result as a new Money instance.
+     * @param scalar The scalar value to multiply by.
+     * @return A new Money instance representing the product of this instance and the scalar value.
+     */
     public Money multiply(Money scalar) {
         return new Money(this.amount.multiply(scalar.getAmount()));
     }
@@ -146,8 +155,8 @@ public class Money {
      * Gets the amount of this instance as a string.
      * @return The amount of this instance as a string.
      */
-    public String getAmountString() {
+    @Override
+    public String toString() {
         return this.amount.toPlainString();
     }
-
 }
