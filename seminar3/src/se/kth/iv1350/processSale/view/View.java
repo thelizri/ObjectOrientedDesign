@@ -1,6 +1,9 @@
 package se.kth.iv1350.processSale.view;
 
 import se.kth.iv1350.processSale.controller.Controller;
+import se.kth.iv1350.processSale.dto.ItemDTO;
+import se.kth.iv1350.processSale.utils.Money;
+
 import java.util.Scanner;
 
 /**
@@ -8,17 +11,17 @@ import java.util.Scanner;
  * It's a simple command line interface.
  */
 public class View {
-    private Controller controller;
-    private Scanner scanner;
+    private final Controller controller;
+    private final Scanner scanner;
 
     /**
      * Creates a new instance of the View class with the specified controller.
+     *
      * @param controller The controller to use for the view.
      */
     public View(Controller controller) {
         this.controller = controller;
         scanner = new Scanner(System.in);
-        run();
     }
 
     /**
@@ -30,30 +33,17 @@ public class View {
             String command = scanner.nextLine();
             String[] tokens = command.split(" ");
             switch (tokens[0]) {
-                case "startSale":
-                    startNewSale();
-                    break;
-                case "exit":
+                case "startSale" -> startNewSale();
+                case "exit" -> {
                     exitProgram();
                     return;
-                case "addItem":
-                    addItem(tokens);
-                    break;
-                case "discount":
-                    requestDiscount(tokens);
-                    break;
-                case "pay":
-                    makePayment(tokens);
-                    break;
-                case "closeSale":
-                    closeSale();
-                    break;
-                case "help":
-                    displayHelp();
-                    break;
-                default:
-                    System.out.println("Invalid command. Type 'help' if you're stuck.");
-                    break;
+                }
+                case "addItem" -> addItem(tokens);
+                case "discount" -> requestDiscount(tokens);
+                case "pay" -> makePayment(tokens);
+                case "closeSale" -> closeSale();
+                case "help" -> displayHelp();
+                default -> System.out.println("Invalid command. Type 'help' if you're stuck.");
             }
         }
     }
@@ -71,7 +61,15 @@ public class View {
         if (tokens.length == 3) {
             String itemID = tokens[1];
             int quantity = Integer.parseInt(tokens[2]);
-            System.out.println(controller.addItem(itemID, quantity));
+            ItemDTO itemDTO = controller.addItem(itemID, quantity);
+            if(itemDTO != null){
+                System.out.println(itemDTO.getDescription() + " " + itemDTO.getQuantity());
+                Money runningTotal = controller.getTotal();
+                System.out.printf("Running total: %.2f Kr\n", runningTotal.getAmountFloat());
+            }
+            else{
+                System.out.println("Error while scanning barcode. Try again.");
+            }
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: addItem <itemID> <quantity>");
@@ -81,13 +79,13 @@ public class View {
     private void requestDiscount(String[] tokens) {
         if (tokens.length == 2) {
             String customerID = tokens[1];
-            float discount = controller.requestDiscount(customerID);
-            if (discount <= 0) {
-                System.out.println("No discounts available.");
+            Money discount = controller.requestDiscount(customerID);
+            if (discount.isGreaterThanZero()) {
+                System.out.printf("Applied discount: %.2f Kr\n", discount.getAmountFloat());
+                Money remaining = controller.getRemainingAmount();
+                System.out.printf("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
             } else {
-                System.out.printf("Applied discount: %.2f Kr\n", discount);
-                float remaining = controller.getRemainingAmount();
-                System.out.printf("Remaining Total: %.2f Kr\n", remaining);
+                System.out.println("No discounts available.");
             }
         } else {
             System.out.println("Invalid command");
@@ -97,9 +95,9 @@ public class View {
 
     private void makePayment(String[] tokens) {
         if (tokens.length == 2) {
-            float amount = Float.parseFloat(tokens[1]);
-            float remaining = controller.pay(amount);
-            System.out.printf("Remaining: %.2f Kr\n", remaining);
+            Money amount = new Money(tokens[1]);
+            Money remaining = controller.pay(amount);
+            System.out.printf("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
         } else {
             System.out.println("Invalid command");
             System.out.println("Syntax: pay <amount>");
@@ -109,8 +107,8 @@ public class View {
     private void closeSale() {
         if (!controller.closeSale()) {
             System.out.println("You must finish paying before you can close the sale.");
-            float remaining = controller.getRemainingAmount();
-            System.out.printf("Remaining Total: %.2f Kr\n", remaining);
+            Money remaining = controller.getRemainingAmount();
+            System.out.printf("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
         }
     }
 
