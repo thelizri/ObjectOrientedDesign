@@ -126,9 +126,19 @@ public class Sale {
      */
     public void addItem(Item item, int quantity) {
         item.setQuantity(quantity);
-        itemList.add(item);
+        addItemToList(item, quantity);
         totalPrice = totalPrice.add(item.getTotalPrice());
         totalVAT = totalVAT.add(item.getTotalVAT());
+    }
+
+    private void addItemToList(Item item, int quantity) {
+        for (Item listItem: itemList){
+            if (item.equals(listItem)){
+                listItem.addQuantity(quantity);
+                return;
+            }
+        }
+        itemList.add(item);
     }
 
     /**

@@ -70,6 +70,19 @@ public class Item {
     }
 
     /**
+     * Compares the item identifers of this instance with that of the argument to compare for equality.
+     * If the item identifers are equal, it means we have the same item.
+     *
+     * @param item The item that's being compared with this instance.
+     * @return true if the items are equal. Else false.
+     */
+    public boolean equals(Item item) {
+        if (this == item) return true;
+        if (this.itemIdentifier.equals(item.itemIdentifier)) return true;
+        return false;
+    }
+
+    /**
      * Gets the description of the item.
      *
      * @return The description of the item.
@@ -112,6 +125,15 @@ public class Item {
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * Increases the quantity of the item.
+     *
+     * @param quantity The quantity to increment with.
+     */
+    public void addQuantity(int quantity) {
+        this.quantity += quantity;
     }
 
     /**
