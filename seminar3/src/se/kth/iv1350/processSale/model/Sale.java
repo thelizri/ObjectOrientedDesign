@@ -20,7 +20,6 @@ public class Sale {
     private Money discount;
     private Money totalVAT;
     private Money amountPaid;
-    private Money change;
 
     /**
      * Constructs a new instance of the Sale class with default values.
@@ -31,7 +30,6 @@ public class Sale {
         this.totalPrice = new Money();
         this.totalVAT = new Money();
         this.amountPaid = new Money();
-        this.change = new Money();
         this.discount = new Money();
     }
 
@@ -72,8 +70,7 @@ public class Sale {
      * @return The amount of change the customer should receive back.
      */
     public Money getChange() {
-        this.discount = amountPaid.subtract(totalPrice).subtract(discount);
-        return this.discount;
+        return amountPaid.subtract(totalPrice).subtract(discount);
     }
 
     /**
@@ -82,7 +79,7 @@ public class Sale {
      * @return A SaleDTO object representing the sale.
      */
     public SaleDTO getSaleDTO() {
-        return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, this.getChange());
+        return new SaleDTO(dateTime, itemList, totalPrice, totalVAT, amountPaid, this.getChange(), discount);
     }
 
     /**

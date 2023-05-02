@@ -16,6 +16,7 @@ public class SaleDTO {
     private final List<ItemDTO> itemList;
     private final Money totalPrice;
     private final Money totalVAT;
+    private final Money discount;
     private final Money amountPaid;
     private final Money change;
 
@@ -29,7 +30,7 @@ public class SaleDTO {
      * @param amountPaid The amount paid for the sale.
      * @param change     The change given to the customer after the sale.
      */
-    public SaleDTO(LocalDateTime dateTime, List<Item> itemList, Money totalPrice, Money totalVAT, Money amountPaid, Money change) {
+    public SaleDTO(LocalDateTime dateTime, List<Item> itemList, Money totalPrice, Money totalVAT, Money amountPaid, Money change, Money discount) {
         this.dateTime = dateTime;
         this.itemList = new ArrayList<>();
         for (Item item : itemList) {
@@ -39,6 +40,7 @@ public class SaleDTO {
         this.totalVAT = totalVAT;
         this.amountPaid = amountPaid;
         this.change = change;
+        this.discount = discount;
     }
 
     /**
@@ -95,5 +97,24 @@ public class SaleDTO {
         return change;
     }
 
+    /**
+     * Returns the discount that was applied to the sale.
+     *
+     * @return The discount that was applied to the sale.
+     */
+    public Money getDiscount() {
+        return discount;
+    }
+
+    /**
+     * Returns a list with all the itemDTOs of the sale.
+     *
+     * @return All the itemDTOs of the sale.
+     */
+    public List<ItemDTO> getItemList() {
+        List<ItemDTO> copy = new ArrayList<>();
+        copy.addAll(itemList);
+        return copy;
+    }
 }
 
