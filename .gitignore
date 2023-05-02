@@ -23,6 +23,5 @@
 hs_err_pid*
 
 #IntelliJ Stuff
-/seminar3/out/
-/seminar3/.idea/
-/seminar3/seminar3.iml
+out/
+.idea/
