@@ -103,7 +103,7 @@ public class Sale {
         // Add summary information
         receiptBuilder.append(String.format("\n%-20s %10.2f kr\n", "Total price:", totalPrice.getAmountFloat()));
 
-        if (discount.isGreaterThanZero()){
+        if (discount.isGreaterThanZero()) {
             receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discount:", discount.negate().getAmountFloat()));
             receiptBuilder.append(String.format("%-20s %10.2f kr\n", "Discounted price:", totalPrice.subtract(discount).getAmountFloat()));
         }
@@ -129,8 +129,8 @@ public class Sale {
     }
 
     private Item addItemToList(Item item, int quantity) {
-        for (Item listItem: itemList){
-            if (item.equals(listItem)){
+        for (Item listItem : itemList) {
+            if (item.equals(listItem)) {
                 listItem.addQuantity(quantity);
                 return listItem;
             }

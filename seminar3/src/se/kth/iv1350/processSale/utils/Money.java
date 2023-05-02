@@ -23,7 +23,7 @@ public class Money {
      * @param amount The amount of money, as a double.
      */
     public Money(double amount) {
-        String intermediate = "" + amount; //It's more accurate if you convert double to string and then to BigDecimal.
+        String intermediate = String.valueOf(amount); //It's more accurate if you convert double to string and then to BigDecimal.
         this.amount = new BigDecimal(intermediate);
     }
 

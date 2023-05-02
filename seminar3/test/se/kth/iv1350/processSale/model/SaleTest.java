@@ -1,16 +1,10 @@
 package se.kth.iv1350.processSale.model;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import se.kth.iv1350.processSale.dto.SaleDTO;
 import se.kth.iv1350.processSale.utils.Money;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class SaleTest {
     private Sale sale;

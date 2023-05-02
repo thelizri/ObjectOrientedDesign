@@ -78,8 +78,7 @@ public class Item {
      */
     public boolean equals(Item item) {
         if (this == item) return true;
-        if (this.itemIdentifier.equals(item.itemIdentifier)) return true;
-        return false;
+        return this.itemIdentifier.equals(item.itemIdentifier);
     }
 
     /**
