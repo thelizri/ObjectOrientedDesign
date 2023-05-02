@@ -23,6 +23,6 @@
 hs_err_pid*
 
 #IntelliJ Stuff
-out/
-.idea/
-/.idea/
+**/out/
+**/.idea/
+*.iml
