@@ -2,17 +2,15 @@ package se.kth.iv1350.processSale.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.dto.ItemDTO;
 import se.kth.iv1350.processSale.integration.DiscountDatabase;
 import se.kth.iv1350.processSale.integration.ExternalAccountingSystem;
 import se.kth.iv1350.processSale.integration.ExternalInventorySystem;
 import se.kth.iv1350.processSale.integration.Printer;
-import se.kth.iv1350.processSale.model.Item;
 import se.kth.iv1350.processSale.utils.Money;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ControllerTest {
 

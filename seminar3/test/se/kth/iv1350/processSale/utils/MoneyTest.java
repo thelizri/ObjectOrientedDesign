@@ -1,10 +1,8 @@
 package se.kth.iv1350.processSale.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
-import java.math.BigDecimal;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MoneyTest {
 
@@ -27,8 +25,8 @@ public class MoneyTest {
     @Test
     void testMultiply() {
         Money money1 = new Money(5);
-        Money money2 = new Money(2);
+        Money money2 = new Money(2.3);
         Money result = money1.multiply(money2);
-        assertEquals(new Money("10"), result);
+        assertEquals(new Money("11.5"), result);
     }
 }
