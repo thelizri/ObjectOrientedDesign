@@ -13,7 +13,7 @@ public class ExternalInventorySystem {
      * Constructs a new instance of the ExternalInventorySystem class.
      */
     public ExternalInventorySystem() {
-        // constructor implementation
+
     }
 
     /**
@@ -22,7 +22,7 @@ public class ExternalInventorySystem {
      * @param saleDTO The saleDTO to update the inventory system with.
      */
     public void updateInventory(SaleDTO saleDTO) {
-        // implementation to update the inventory system with the sale receipt
+
     }
 
     /**

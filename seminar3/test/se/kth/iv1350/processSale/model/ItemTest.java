@@ -33,7 +33,7 @@ public class ItemTest {
         Money expectedPrice = new Money("27.50");
 
         item.setQuantity(2);
-        Money actualPrice = item.getPrice();
+        Money actualPrice = item.getPriceIncludingVAT();
 
         assertEquals(expectedPrice, actualPrice);
     }

@@ -9,7 +9,7 @@ public class Printer {
      * Creates a new instance of the Printer class.
      */
     public Printer() {
-        // Constructor code goes here, if needed
+
     }
 
     /**

@@ -12,7 +12,7 @@ public class DiscountDatabase {
      * Constructs a new instance of the DiscountDatabase class.
      */
     public DiscountDatabase() {
-        // constructor implementation
+
     }
 
     /**
@@ -23,7 +23,6 @@ public class DiscountDatabase {
      * @return The amount of discount, if applicable.
      */
     public Money checkDiscounts(SaleDTO currentSale, String customerID) {
-        // implementation to check for applicable discounts for the current sale and customer
         return new Money(10);
     }
 }

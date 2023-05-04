@@ -12,7 +12,7 @@ public class ExternalAccountingSystem {
      * Constructs a new instance of the ExternalAccountingSystem class.
      */
     public ExternalAccountingSystem() {
-        // constructor implementation
+
     }
 
     /**
@@ -21,7 +21,7 @@ public class ExternalAccountingSystem {
      * @param saleDTO The SaleDTO object representing the sale.
      */
     public void logNewSale(SaleDTO saleDTO) {
-        // implementation to log the new sale in the accounting system
+
     }
 }
 

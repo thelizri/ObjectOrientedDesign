@@ -22,10 +22,10 @@ class SaleTest {
     void testAddItem() {
         int quantity = 2;
         sale.addItem(item, quantity);
-        assertEquals(item.getPrice().multiply(quantity), sale.getTotal(), "Total price should be correct");
+        assertEquals(item.getPriceIncludingVAT().multiply(quantity), sale.getTotal(), "Total price should be correct");
         assertEquals(quantity, sale.getSaleDTO().getItemList().get(0).getQuantity(), "Quantity should be correct");
         sale.addItem(item, quantity);
-        assertEquals(item.getPrice().multiply(quantity * 2), sale.getTotal(), "Total price should be correct with duplicate item");
+        assertEquals(item.getPriceIncludingVAT().multiply(quantity * 2), sale.getTotal(), "Total price should be correct with duplicate item");
         assertEquals(quantity * 2, sale.getSaleDTO().getItemList().get(0).getQuantity(), "Quantity should be correct with duplicate item");
     }
 
@@ -34,7 +34,7 @@ class SaleTest {
         Money discount = new Money(50);
         sale.addItem(item, 1);
         sale.applyDiscount(discount);
-        assertEquals(item.getPrice().subtract(discount), sale.getRemainingAmount(), "Remaining amount should be correct after discount");
+        assertEquals(item.getPriceIncludingVAT().subtract(discount), sale.getRemainingAmount(), "Remaining amount should be correct after discount");
         assertEquals(discount, sale.getSaleDTO().getDiscount(), "Discount should be correct");
     }
 
@@ -45,17 +45,17 @@ class SaleTest {
         sale.addItem(item, 1);
         sale.pay(payment1);
         assertEquals(payment1, sale.getAmountPaid(), "Amount paid should be correct after first payment");
-        assertEquals(item.getPrice().subtract(payment1), sale.getRemainingAmount(), "Remaining amount should be correct after first payment");
+        assertEquals(item.getPriceIncludingVAT().subtract(payment1), sale.getRemainingAmount(), "Remaining amount should be correct after first payment");
         sale.pay(payment2);
         assertEquals(payment1.add(payment2), sale.getAmountPaid(), "Amount paid should be correct after second payment");
-        assertEquals(item.getPrice().subtract(payment1).subtract(payment2), sale.getRemainingAmount(), "Remaining amount should be correct after second payment");
+        assertEquals(item.getPriceIncludingVAT().subtract(payment1).subtract(payment2), sale.getRemainingAmount(), "Remaining amount should be correct after second payment");
     }
 
     @Test
     void testCloseSale() {
         sale.addItem(item, 1);
         assertFalse(sale.closeSale(), "Sale should not be closed if not fully paid");
-        sale.pay(item.getPrice());
+        sale.pay(item.getPriceIncludingVAT());
         assertTrue(sale.closeSale(), "Sale should be closed if fully paid");
     }
 }

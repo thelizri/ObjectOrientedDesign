@@ -96,7 +96,7 @@ public class Sale {
 
         // Add item information
         for (Item item : itemList) {
-            Money itemPriceTotal = item.getPrice().multiply(item.getQuantity());
+            Money itemPriceTotal = item.getPriceIncludingVAT().multiply(item.getQuantity());
             receiptBuilder.append(String.format("%-20s %-3d %6.2f kr\n", item.getDescription(), item.getQuantity(), itemPriceTotal.getAmountFloat()));
         }
 

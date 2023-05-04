@@ -8,11 +8,11 @@ import se.kth.iv1350.processSale.utils.Money;
  */
 public class Item {
     private final String itemIdentifier;
-    private final Money price; //Price for a single unit
+    private final Money priceIncludingVAT;
     private final Money priceExcludingVAT;
     private final String description;
-    private final Money rateVAT; //There are three different VAT rates: 25%, 12% and 6%.
-    private final Money amountVAT; //VAT for a single unit
+    private final Money rateVAT;
+    private final Money amountVAT;
     private int quantity;
 
     /**
@@ -30,7 +30,7 @@ public class Item {
         this.rateVAT = rateVAT;
         this.quantity = 0;
         this.amountVAT = priceExcludingVAT.multiply(rateVAT);
-        this.price = priceExcludingVAT.add(amountVAT);
+        this.priceIncludingVAT = priceExcludingVAT.add(amountVAT);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Item {
      * @return An ItemDTO instance representing this item.
      */
     public ItemDTO getItemDTO() {
-        return new ItemDTO(this.itemIdentifier, this.price, this.description, this.rateVAT, this.amountVAT, this.quantity, this.getTotalPrice(), this.getAmountVAT());
+        return new ItemDTO(this.itemIdentifier, this.priceIncludingVAT, this.description, this.rateVAT, this.amountVAT, this.quantity, this.getTotalPrice(), this.getAmountVAT());
     }
 
     /**
@@ -65,8 +65,8 @@ public class Item {
      *
      * @return The price of the item.
      */
-    public Money getPrice() {
-        return this.price;
+    public Money getPriceIncludingVAT() {
+        return this.priceIncludingVAT;
     }
 
     /**
@@ -141,7 +141,7 @@ public class Item {
      * @return The total price of the item, as a Money instance.
      */
     public Money getTotalPrice() {
-        return this.price.multiply(this.quantity);
+        return this.priceIncludingVAT.multiply(this.quantity);
     }
 
     /**
