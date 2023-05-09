@@ -2,9 +2,11 @@ package se.kth.iv1350.processSale.view;
 
 import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.dto.ItemDTO;
+import se.kth.iv1350.processSale.utils.ExceptionLogger;
 import se.kth.iv1350.processSale.utils.Money;
 
 import java.util.Scanner;
+import java.util.logging.Level;
 
 /**
  * This class represents the interface the cashier uses when they take the customer's order.
@@ -61,11 +63,10 @@ public class View {
         if (tokens.length == 3) {
             String itemID = tokens[1];
             int quantity;
-            try{
+            try {
                 quantity = Integer.parseInt(tokens[2]);
-            }
-            catch(NumberFormatException exception){
-                System.out.println("<quantity> must be a number");
+            } catch (NumberFormatException exception) {
+                ExceptionLogger.logException(exception, Level.INFO, "Error: Quantity must be an integer");
                 return;
             }
             ItemDTO itemDTO = controller.addItem(itemID, quantity);
