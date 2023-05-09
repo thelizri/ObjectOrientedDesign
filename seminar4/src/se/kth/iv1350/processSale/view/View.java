@@ -60,7 +60,14 @@ public class View {
     private void addItem(String[] tokens) {
         if (tokens.length == 3) {
             String itemID = tokens[1];
-            int quantity = Integer.parseInt(tokens[2]);
+            int quantity;
+            try{
+                quantity = Integer.parseInt(tokens[2]);
+            }
+            catch(NumberFormatException exception){
+                System.out.println("<quantity> must be a number");
+                return;
+            }
             ItemDTO itemDTO = controller.addItem(itemID, quantity);
             if (itemDTO != null) {
                 System.out.println(itemDTO.getDescription() + " " + itemDTO.getQuantity());
