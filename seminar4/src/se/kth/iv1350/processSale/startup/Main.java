@@ -13,7 +13,7 @@ public class Main {
 
         try {
             DiscountDatabase discDb = new DiscountDatabase();
-            ExternalAccountingSystem accSys = new ExternalAccountingSystem();
+            ExternalAccountingSystem accSys = ExternalAccountingSystem.getInstance();
             ExternalInventorySystem invSys = new ExternalInventorySystem();
             Printer printer = new Printer();
             TotalRevenueFileOutput revenueFileOutput= new TotalRevenueFileOutput();

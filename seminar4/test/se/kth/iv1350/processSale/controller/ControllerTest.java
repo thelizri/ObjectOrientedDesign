@@ -20,7 +20,7 @@ public class ControllerTest {
     @BeforeEach
     public void setUp() {
         ExternalInventorySystem invSys = new ExternalInventorySystem();
-        ExternalAccountingSystem accSys = new ExternalAccountingSystem();
+        ExternalAccountingSystem accSys = ExternalAccountingSystem.getInstance();
         Printer printer = new Printer();
         DiscountDatabase discDb = new DiscountDatabase();
         TotalRevenueFileOutput revenueFileOutput= new TotalRevenueFileOutput();
