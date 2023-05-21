@@ -3,6 +3,7 @@ package se.kth.iv1350.processSale.integration;
 import se.kth.iv1350.processSale.dto.SaleDTO;
 import se.kth.iv1350.processSale.model.Item;
 import se.kth.iv1350.processSale.utils.Money;
+import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
 
 /**
  * A placeholder class to represent an external inventory system. It would be implemented with the actual system's APIs and endpoints.
@@ -32,7 +33,7 @@ public class ExternalInventorySystem {
      * @param itemIdentifier The identifier of the item to get.
      * @return An Item object representing the item.
      */
-    public Item getItem(String itemIdentifier) {
+    public Item getItem(String itemIdentifier) throws ItemDoesNotExistException {
         switch (itemIdentifier.toLowerCase()) {
             case "milk":
                 return new Item(itemIdentifier, new Money(25), "Milk", new Money(0.06));
@@ -51,7 +52,7 @@ public class ExternalInventorySystem {
             case "juice":
                 return new Item(itemIdentifier, new Money(30), "Orange Juice", new Money(0.06));
             default:
-                return null;
+                throw new ItemDoesNotExistException(404, "Resource not found");
         }
     }
 

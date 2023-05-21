@@ -2,6 +2,7 @@ package se.kth.iv1350.processSale.view;
 
 import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.dto.ItemDTO;
+import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
 import se.kth.iv1350.processSale.utils.ExceptionLogger;
 import se.kth.iv1350.processSale.utils.Money;
 
@@ -69,13 +70,14 @@ public class View {
                 ExceptionLogger.logException(exception, Level.INFO, "Error: Quantity must be an integer");
                 return;
             }
-            ItemDTO itemDTO = controller.addItem(itemID, quantity);
-            if (itemDTO != null) {
+            try {
+                ItemDTO itemDTO = controller.addItem(itemID, quantity);
                 System.out.println(itemDTO.getDescription() + " " + itemDTO.getQuantity());
                 Money runningTotal = controller.getTotal();
                 System.out.printf("Running total: %.2f Kr\n", runningTotal.getAmountFloat());
-            } else {
-                System.out.println("Error while scanning barcode. Try again.");
+            }
+            catch(ItemDoesNotExistException exception){
+                ExceptionLogger.logException(exception, Level.WARNING, "Error while scanning barcode. Try again.");
             }
         } else {
             System.out.println("Invalid command");
