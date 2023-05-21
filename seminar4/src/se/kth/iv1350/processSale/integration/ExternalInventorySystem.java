@@ -27,11 +27,16 @@ public class ExternalInventorySystem {
     }
 
     /**
-     * Gets an item from the external inventory system with the specified item identifier.
-     * This is just a placeholder method and would be implemented with the actual system's APIs and endpoints.
+     * Retrieves an Item object representing a specific item from the mock external inventory system, based on the provided item identifier.
+     * In the context of a real system, this function would likely interact with the actual APIs and endpoints of the external inventory system.
      *
-     * @param itemIdentifier The identifier of the item to get.
-     * @return An Item object representing the item.
+     * Currently, this method supports the following item identifiers: "milk", "cereal", "cola", "yogurt", "bread", "cheese", "apples", and "juice".
+     *
+     * If an item identifier is provided that isn't one of the specified identifiers, an ItemDoesNotExistException is thrown.
+     *
+     * @param itemIdentifier The identifier of the item to retrieve. The identifier is case-insensitive.
+     * @return An Item object that represents the item from the external inventory system. Each Item object includes the item's identifier, cost, description, and tax.
+     * @throws ItemDoesNotExistException If the provided itemIdentifier doesn't match any of the available item identifiers, this exception is thrown with error code 404 and a "Resource not found" message.
      */
     public Item getItem(String itemIdentifier) throws ItemDoesNotExistException {
         switch (itemIdentifier.toLowerCase()) {
