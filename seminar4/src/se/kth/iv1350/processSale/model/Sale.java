@@ -2,6 +2,8 @@ package se.kth.iv1350.processSale.model;
 
 import se.kth.iv1350.processSale.dto.SaleDTO;
 import se.kth.iv1350.processSale.utils.Money;
+import se.kth.iv1350.processSale.utils.Observer;
+import se.kth.iv1350.processSale.utils.Subject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,9 +15,10 @@ import java.util.List;
  * It contains information about the items in the sale, the total price of the sale,
  * discounts applied, amount paid, and change given.
  */
-public class Sale {
+public class Sale implements Subject {
     private final LocalDateTime dateTime;
     private final List<Item> itemList;
+    private List<Observer> observersList;
     private Money totalPrice;
     private Money discount;
     private Money totalVAT;
@@ -27,6 +30,7 @@ public class Sale {
     public Sale() {
         this.dateTime = LocalDateTime.now();
         this.itemList = new ArrayList<>();
+        this.observersList = new ArrayList<>();
         this.totalPrice = new Money();
         this.totalVAT = new Money();
         this.amountPaid = new Money();
@@ -164,6 +168,36 @@ public class Sale {
      */
     public void pay(Money amount) {
         amountPaid = amountPaid.add(amount);
+    }
+
+    /**
+     * Registers an observer to be notified of changes.
+     *
+     * @param observer the observer to register
+     */
+    @Override
+    public void register(Observer observer) {
+        observersList.add(observer);
+    }
+
+    /**
+     * Unregisters an observer so that it will no longer be notified of changes.
+     *
+     * @param observer the observer to unregister
+     */
+    @Override
+    public void unregister(Observer observer) {
+        observersList.remove(observer);
+    }
+
+    /**
+     * Notifies all registered observers of a change.
+     */
+    @Override
+    public void notifyObserver() {
+        for (Observer observer: observersList) {
+            observer.update(totalPrice);
+        }
     }
 }
 

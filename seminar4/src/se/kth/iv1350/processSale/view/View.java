@@ -17,6 +17,7 @@ import java.util.logging.Level;
 public class View {
     private final Controller controller;
     private final Scanner scanner;
+    private final TotalRevenueView totalRevenueView;
 
     /**
      * Creates a new instance of the View class with the specified controller.
@@ -26,6 +27,7 @@ public class View {
     public View(Controller controller) {
         this.controller = controller;
         scanner = new Scanner(System.in);
+        totalRevenueView = new TotalRevenueView();
     }
 
     /**
@@ -47,13 +49,14 @@ public class View {
                 case "pay" -> makePayment(tokens);
                 case "closeSale" -> closeSale();
                 case "help" -> displayHelp();
+                case "totalRevenue" -> displayTotalRevenue();
                 default -> System.out.println("Invalid command. Type 'help' if you're stuck.");
             }
         }
     }
 
     private void startNewSale() {
-        controller.createNewSale();
+        controller.createNewSale(totalRevenueView);
         System.out.println("Created new sale");
     }
 
@@ -132,5 +135,9 @@ public class View {
         System.out.println("discount <customerID>           - request a discount");
         System.out.println("pay <amount>                    - pays for purchase");
         System.out.println("closeSale                       - closes the sale. prints receipt. updates external systems.");
+    }
+
+    private void displayTotalRevenue(){
+        totalRevenueView.displayTotalRevenue();
     }
 }

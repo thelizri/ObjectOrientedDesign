@@ -3,13 +3,11 @@ package se.kth.iv1350.processSale.controller;
 import se.kth.iv1350.processSale.dto.ItemDTO;
 import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
-import se.kth.iv1350.processSale.integration.DiscountDatabase;
-import se.kth.iv1350.processSale.integration.ExternalAccountingSystem;
-import se.kth.iv1350.processSale.integration.ExternalInventorySystem;
-import se.kth.iv1350.processSale.integration.Printer;
+import se.kth.iv1350.processSale.integration.*;
 import se.kth.iv1350.processSale.model.Item;
 import se.kth.iv1350.processSale.model.Sale;
 import se.kth.iv1350.processSale.utils.Money;
+import se.kth.iv1350.processSale.utils.Observer;
 
 /**
  * The Controller class represents the controller in the point-of-sale system.
@@ -20,6 +18,7 @@ public class Controller {
     private final ExternalAccountingSystem accSys;
     private final Printer printer;
     private final DiscountDatabase discDb;
+    private final TotalRevenueFileOutput revenueFileOutput;
     private Sale currentSale;
 
     /**
@@ -30,19 +29,22 @@ public class Controller {
      * @param printer The printer for printing receipts.
      * @param discDb  The discount database for checking applicable discounts.
      */
-    public Controller(ExternalInventorySystem invSys, ExternalAccountingSystem accSys, Printer printer, DiscountDatabase discDb) {
+    public Controller(ExternalInventorySystem invSys, ExternalAccountingSystem accSys, Printer printer, DiscountDatabase discDb, TotalRevenueFileOutput revenueFileOutput) {
         this.invSys = invSys;
         this.accSys = accSys;
         this.printer = printer;
         this.discDb = discDb;
+        this.revenueFileOutput = revenueFileOutput;
     }
 
     /**
      * Creates a new sale.
      */
-    public void createNewSale() {
+    public void createNewSale(Observer observer) {
         if (currentSale == null) {
             currentSale = new Sale();
+            currentSale.register(revenueFileOutput);
+            currentSale.register(observer);
         }
     }
 
