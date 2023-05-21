@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.model;
 
 import se.kth.iv1350.processSale.dto.SaleDTO;
+import se.kth.iv1350.processSale.exception.SaleNotPaidException;
 import se.kth.iv1350.processSale.utils.Money;
 import se.kth.iv1350.processSale.utils.Observer;
 import se.kth.iv1350.processSale.utils.Subject;
@@ -157,8 +158,10 @@ public class Sale implements Subject {
      *
      * @return true if the sale has been closed successfully, false otherwise.
      */
-    public boolean closeSale() {
-        return !this.getRemainingAmount().isGreaterThanZero();
+    public void closeSale() throws SaleNotPaidException {
+        if (this.getRemainingAmount().isGreaterThanZero()) {
+            throw new SaleNotPaidException(400, "Bad Request");
+        }
     }
 
     /**

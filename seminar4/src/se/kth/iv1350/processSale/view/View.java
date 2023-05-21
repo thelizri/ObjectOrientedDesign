@@ -4,6 +4,7 @@ import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.dto.ItemDTO;
 import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
+import se.kth.iv1350.processSale.exception.SaleNotPaidException;
 import se.kth.iv1350.processSale.utils.ExceptionLogger;
 import se.kth.iv1350.processSale.utils.Money;
 
@@ -121,10 +122,14 @@ public class View {
     }
 
     private void closeSale() {
-        if (!controller.closeSale()) {
-            System.out.println("You must finish paying before you can close the sale.");
+        try {
+            controller.closeSale();
+        }
+        catch (SaleNotPaidException exception){
+            String message = "You must finish paying before you can close the sale.";
             Money remaining = controller.getRemainingAmount();
-            System.out.printf("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
+            message += String.format("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
+            ExceptionLogger.logException(exception, Level.INFO, message);
         }
     }
 

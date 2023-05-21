@@ -3,6 +3,7 @@ package se.kth.iv1350.processSale.controller;
 import se.kth.iv1350.processSale.dto.ItemDTO;
 import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
+import se.kth.iv1350.processSale.exception.SaleNotPaidException;
 import se.kth.iv1350.processSale.integration.*;
 import se.kth.iv1350.processSale.model.Item;
 import se.kth.iv1350.processSale.model.Sale;
@@ -38,7 +39,7 @@ public class Controller {
     }
 
     /**
-     * Creates a new sale.
+     * Creates a new sale and registers observers to that Sale.
      */
     public void createNewSale(Observer observer) {
         if (currentSale == null) {
@@ -108,13 +109,10 @@ public class Controller {
      *
      * @return true if the sale is closed successfully, false otherwise.
      */
-    public boolean closeSale() {
-        if (currentSale.closeSale()) {
-            pushSaleToExternalSystems();
-            this.currentSale = null;
-            return true;
-        }
-        return false;
+    public void closeSale() throws SaleNotPaidException {
+        currentSale.closeSale();
+        pushSaleToExternalSystems();
+        this.currentSale = null;
     }
 
     private void pushSaleToExternalSystems() {
