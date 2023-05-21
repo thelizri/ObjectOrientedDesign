@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.integration;
 
 import se.kth.iv1350.processSale.dto.SaleDTO;
+import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.model.Item;
 import se.kth.iv1350.processSale.utils.Money;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
@@ -28,17 +29,20 @@ public class ExternalInventorySystem {
 
     /**
      * Retrieves an Item object representing a specific item from the mock external inventory system, based on the provided item identifier.
-     * In the context of a real system, this function would likely interact with the actual APIs and endpoints of the external inventory system.
+     * In a real-world application, this method would interface with the actual APIs and endpoints of the external inventory system.
      *
-     * Currently, this method supports the following item identifiers: "milk", "cereal", "cola", "yogurt", "bread", "cheese", "apples", and "juice".
+     * The method supports the following item identifiers: "milk", "cereal", "cola", "yogurt", "bread", "cheese", "apples", and "juice".
+     * Each identifier corresponds to a unique Item with defined cost, description, and tax properties.
+     * A special identifier "failure" is used to simulate a database failure.
      *
-     * If an item identifier is provided that isn't one of the specified identifiers, an ItemDoesNotExistException is thrown.
+     * If an unsupported item identifier is provided, an appropriate exception is thrown.
      *
-     * @param itemIdentifier The identifier of the item to retrieve. The identifier is case-insensitive.
-     * @return An Item object that represents the item from the external inventory system. Each Item object includes the item's identifier, cost, description, and tax.
-     * @throws ItemDoesNotExistException If the provided itemIdentifier doesn't match any of the available item identifiers, this exception is thrown with error code 404 and a "Resource not found" message.
+     * @param itemIdentifier The identifier of the item to retrieve. It's case-insensitive.
+     * @return An Item object that represents the specified item in the external inventory system.
+     * @throws ItemDoesNotExistException If the provided itemIdentifier doesn't match any of the supported item identifiers, this exception is thrown with error code 404 and a "Resource not found" message.
+     * @throws DatabaseFailureException If the provided itemIdentifier is "failure", this exception is thrown with error code 503 and a "Could not connect to database" message, simulating a database failure.
      */
-    public Item getItem(String itemIdentifier) throws ItemDoesNotExistException {
+    public Item getItem(String itemIdentifier) throws ItemDoesNotExistException, DatabaseFailureException {
         switch (itemIdentifier.toLowerCase()) {
             case "milk":
                 return new Item(itemIdentifier, new Money(25), "Milk", new Money(0.06));
@@ -56,6 +60,8 @@ public class ExternalInventorySystem {
                 return new Item(itemIdentifier, new Money(26), "Apples", new Money(0.06));
             case "juice":
                 return new Item(itemIdentifier, new Money(30), "Orange Juice", new Money(0.06));
+            case "failure":
+                throw new DatabaseFailureException(503, "Could not connect to database");
             default:
                 throw new ItemDoesNotExistException(404, "Resource not found");
         }

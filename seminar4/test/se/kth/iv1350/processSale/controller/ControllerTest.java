@@ -3,6 +3,7 @@ package se.kth.iv1350.processSale.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.processSale.dto.ItemDTO;
+import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
 import se.kth.iv1350.processSale.integration.DiscountDatabase;
 import se.kth.iv1350.processSale.integration.ExternalAccountingSystem;
@@ -35,7 +36,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void testAddItem() throws ItemDoesNotExistException {
+    public void testAddItem() throws ItemDoesNotExistException, DatabaseFailureException {
         controller.createNewSale();
         ItemDTO addedItem = controller.addItem("milk", 2);
         assertNotNull(addedItem);

@@ -2,6 +2,7 @@ package se.kth.iv1350.processSale.view;
 
 import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.dto.ItemDTO;
+import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
 import se.kth.iv1350.processSale.utils.ExceptionLogger;
 import se.kth.iv1350.processSale.utils.Money;
@@ -78,6 +79,9 @@ public class View {
             }
             catch(ItemDoesNotExistException exception){
                 ExceptionLogger.logException(exception, Level.WARNING, "Error while scanning barcode. Try again.");
+            }
+            catch(DatabaseFailureException exception){
+                ExceptionLogger.logException(exception, Level.SEVERE, "Could not connect to database. We apologize for the inconvenience");
             }
         } else {
             System.out.println("Invalid command");

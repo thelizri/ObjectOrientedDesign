@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.integration;
 
 import org.junit.jupiter.api.Test;
+import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
 import se.kth.iv1350.processSale.model.Item;
 
@@ -37,15 +38,32 @@ public class ExternalInventorySystemTest {
             Item item8 = inventorySystem.getItem("juice");
             assertEquals("Orange Juice", item8.getDescription());
         }
-        catch (ItemDoesNotExistException exception) {
+        catch (Exception exception) {
             fail("Unexpected exception was thrown");
         }
+
+        //Asking for item that does not exist
         try {
             Item item9 = inventorySystem.getItem("nonexistentitem");
             fail("Expected exception was not thrown");
         }
         catch(ItemDoesNotExistException exception){
-            assertEquals("Resource not found", exception.getMessage());
+            assertEquals("Resource not found", exception.getErrorMessage());
+        }
+        catch(DatabaseFailureException exception){
+            fail("Unexpected exception was thrown");
+        }
+
+        //Simulation of database failure
+        try {
+            Item item10 = inventorySystem.getItem("failure");
+            fail("Expected exception was not thrown");
+        }
+        catch(ItemDoesNotExistException exception){
+            fail("Unexpected exception was thrown");
+        }
+        catch(DatabaseFailureException exception){
+            assertEquals("Could not connect to database", exception.getErrorMessage());
         }
     }
 }

@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.controller;
 
 import se.kth.iv1350.processSale.dto.ItemDTO;
+import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
 import se.kth.iv1350.processSale.integration.DiscountDatabase;
 import se.kth.iv1350.processSale.integration.ExternalAccountingSystem;
@@ -61,7 +62,7 @@ public class Controller {
      * @param quantity The quantity of the item to add.
      * @return A string representing the added item and total price of the sale so far.
      */
-    public ItemDTO addItem(String itemID, int quantity) throws ItemDoesNotExistException {
+    public ItemDTO addItem(String itemID, int quantity) throws ItemDoesNotExistException, DatabaseFailureException {
         Item item = invSys.getItem(itemID);
         if (item == null) return null;
         item = currentSale.addItem(item, quantity);
