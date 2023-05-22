@@ -5,15 +5,15 @@ package se.kth.iv1350.processSale.exception;
  * indicating that the database is not running. The class extends from Java's built-in Exception class, providing additional properties
  * such as an error code and an error message.
  */
-public class DatabaseFailureException extends Exception{
+public class DatabaseFailureException extends Exception {
 
-    private int errorCode;
-    private String errorMessage;
+    private final int errorCode;
+    private final String errorMessage;
 
     /**
      * Constructs a new DatabaseFailureException with specified detail message and error code.
      *
-     * @param errorCode The integer error code associated with the exception.
+     * @param errorCode    The integer error code associated with the exception.
      * @param errorMessage The detailed error message providing information about the exception.
      */
     public DatabaseFailureException(int errorCode, String errorMessage) {

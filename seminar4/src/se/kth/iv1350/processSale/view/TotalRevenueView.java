@@ -7,7 +7,7 @@ import se.kth.iv1350.processSale.utils.Observer;
  * This is a concrete Observer class called TotalRevenueView that displays the total revenue.
  * It follows the Observer design pattern and updates the total revenue whenever a change occurs.
  * The change is notified by the Subject.
- *
+ * <p>
  * The TotalRevenueView class implements the Observer interface and overrides the update method.
  */
 public class TotalRevenueView implements Observer {
@@ -39,7 +39,7 @@ public class TotalRevenueView implements Observer {
      * The revenue is formatted as a floating-point number with two decimal places.
      */
     public void displayTotalRevenue() {
-        System.out.println(String.format("%-20s %10.2f kr\n", "Total Revenue: ", totalRevenue.getAmountFloat()));
+        System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
     }
 }
 

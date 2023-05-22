@@ -12,18 +12,18 @@ public interface Subject {
      *
      * @param observer the observer to register
      */
-    public void register(Observer observer);
+    void register(Observer observer);
 
     /**
      * Unregisters an observer so that it will no longer be notified of changes.
      *
      * @param observer the observer to unregister
      */
-    public void unregister(Observer observer);
+    void unregister(Observer observer);
 
     /**
      * Notifies all registered observers of a change.
      */
-    public void notifyObserver();
+    void notifyObserver();
 }
 

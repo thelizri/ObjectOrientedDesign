@@ -7,13 +7,13 @@ package se.kth.iv1350.processSale.exception;
  */
 public class ItemDoesNotExistException extends Exception {
 
-    private int errorCode;
-    private String errorMessage;
+    private final int errorCode;
+    private final String errorMessage;
 
     /**
      * Constructs a new ItemDoesNotExistException with specified detail message and error code.
      *
-     * @param errorCode The integer error code.
+     * @param errorCode    The integer error code.
      * @param errorMessage The detailed error message.
      */
     public ItemDoesNotExistException(int errorCode, String errorMessage) {

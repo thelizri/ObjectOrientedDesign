@@ -19,7 +19,7 @@ import java.util.List;
 public class Sale implements Subject {
     private final LocalDateTime dateTime;
     private final List<Item> itemList;
-    private List<Observer> observersList;
+    private final List<Observer> observersList;
     private Money totalPrice;
     private Money discount;
     private Money totalVAT;
@@ -198,7 +198,7 @@ public class Sale implements Subject {
      */
     @Override
     public void notifyObserver() {
-        for (Observer observer: observersList) {
+        for (Observer observer : observersList) {
             observer.update(totalPrice);
         }
     }

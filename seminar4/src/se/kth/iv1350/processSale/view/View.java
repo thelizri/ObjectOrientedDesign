@@ -80,11 +80,9 @@ public class View {
                 System.out.println(itemDTO.getDescription() + " " + itemDTO.getQuantity());
                 Money runningTotal = controller.getTotal();
                 System.out.printf("Running total: %.2f Kr\n", runningTotal.getAmountFloat());
-            }
-            catch(ItemDoesNotExistException exception){
+            } catch (ItemDoesNotExistException exception) {
                 ExceptionLogger.logException(exception, Level.WARNING, "Error while scanning barcode. Try again.");
-            }
-            catch(DatabaseFailureException exception){
+            } catch (DatabaseFailureException exception) {
                 ExceptionLogger.logException(exception, Level.SEVERE, "Could not connect to database. We apologize for the inconvenience");
             }
         } else {
@@ -124,8 +122,7 @@ public class View {
     private void closeSale() {
         try {
             controller.closeSale();
-        }
-        catch (SaleNotPaidException exception){
+        } catch (SaleNotPaidException exception) {
             String message = "You must finish paying before you can close the sale.";
             Money remaining = controller.getRemainingAmount();
             message += String.format("Remaining total: %.2f Kr\n", remaining.getAmountFloat());
@@ -142,7 +139,7 @@ public class View {
         System.out.println("closeSale                       - closes the sale. prints receipt. updates external systems.");
     }
 
-    private void displayTotalRevenue(){
+    private void displayTotalRevenue() {
         totalRevenueView.displayTotalRevenue();
     }
 }

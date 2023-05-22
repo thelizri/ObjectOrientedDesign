@@ -12,15 +12,15 @@ import java.time.format.DateTimeFormatter;
 /**
  * This class represents a concrete Observer called TotalRevenueFileOutput that writes the total revenue to a file.
  * The class follows the Observer design pattern and updates the total revenue whenever it is notified of a change by the observed Subject.
- *
+ * <p>
  * The TotalRevenueFileOutput class implements the Observer interface and overrides the update method defined by the interface.
  */
 public class TotalRevenueFileOutput implements Observer {
 
-    private Money totalRevenue;
     private final String filePath;
     private final LocalDateTime dateTime;
     private final DateTimeFormatter dateTimeFormatter;
+    private Money totalRevenue;
 
     /**
      * Constructs a new instance of TotalRevenueFileOutput, initializing the total revenue to zero.
@@ -31,7 +31,7 @@ public class TotalRevenueFileOutput implements Observer {
         totalRevenue = new Money();
         this.dateTime = LocalDateTime.now();
         this.dateTimeFormatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
-        this.filePath = "Total-Revenue "+dateTime.format(dateTimeFormatter)+".txt";
+        this.filePath = "Total-Revenue " + dateTime.format(dateTimeFormatter) + ".txt";
     }
 
     /**

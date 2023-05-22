@@ -16,7 +16,7 @@ public class Main {
             ExternalAccountingSystem accSys = ExternalAccountingSystem.getInstance();
             ExternalInventorySystem invSys = new ExternalInventorySystem();
             Printer printer = new Printer();
-            TotalRevenueFileOutput revenueFileOutput= new TotalRevenueFileOutput();
+            TotalRevenueFileOutput revenueFileOutput = new TotalRevenueFileOutput();
             Controller controller = new Controller(invSys, accSys, printer, discDb, revenueFileOutput);
             View view = new View(controller);
             view.run();

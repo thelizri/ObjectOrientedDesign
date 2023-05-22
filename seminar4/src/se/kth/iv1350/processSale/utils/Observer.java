@@ -13,5 +13,5 @@ public interface Observer {
      *
      * @param money the updated state
      */
-    public void update(Money money);
+    void update(Money money);
 }
