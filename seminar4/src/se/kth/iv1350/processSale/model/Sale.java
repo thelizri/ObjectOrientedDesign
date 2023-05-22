@@ -48,6 +48,15 @@ public class Sale implements Subject {
     }
 
     /**
+     * Gets the total price of the sale, with discount subtracted.
+     *
+     * @return The total price of the sale, with discount subtracted.
+     */
+    public Money getTotalPricePaid() {
+        return totalPrice.subtract(discount);
+    }
+
+    /**
      * Gets the amount paid for the sale.
      *
      * @return The amount paid for the sale.
@@ -161,6 +170,8 @@ public class Sale implements Subject {
     public void closeSale() throws SaleNotPaidException {
         if (this.getRemainingAmount().isGreaterThanZero()) {
             throw new SaleNotPaidException(400, "Bad Request");
+        } else {
+            notifyObserver();
         }
     }
 
@@ -199,7 +210,7 @@ public class Sale implements Subject {
     @Override
     public void notifyObserver() {
         for (Observer observer : observersList) {
-            observer.update(totalPrice);
+            observer.update(getTotalPricePaid());
         }
     }
 }

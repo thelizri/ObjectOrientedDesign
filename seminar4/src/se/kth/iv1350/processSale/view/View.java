@@ -137,6 +137,7 @@ public class View {
         System.out.println("discount <customerID>           - request a discount");
         System.out.println("pay <amount>                    - pays for purchase");
         System.out.println("closeSale                       - closes the sale. prints receipt. updates external systems.");
+        System.out.println("totalRevenue                    - displays the total revenue of the current day");
     }
 
     private void displayTotalRevenue() {
