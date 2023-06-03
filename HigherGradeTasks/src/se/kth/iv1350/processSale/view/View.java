@@ -56,16 +56,16 @@ public class View {
         }
     }
 
-    private void startNewSale() {
+    public void startNewSale() {
         controller.createNewSale(totalRevenueView);
         System.out.println("Created new sale");
     }
 
-    private void exitProgram() {
+    public void exitProgram() {
         System.out.println("Exiting program");
     }
 
-    private void addItem(String[] tokens) {
+    public void addItem(String[] tokens) {
         if (tokens.length == 3) {
             String itemID = tokens[1];
             int quantity;
@@ -91,7 +91,7 @@ public class View {
         }
     }
 
-    private void requestDiscount(String[] tokens) {
+    public void requestDiscount(String[] tokens) {
         if (tokens.length == 2) {
             String customerID = tokens[1];
             Money discount = controller.requestDiscount(customerID);
@@ -108,7 +108,7 @@ public class View {
         }
     }
 
-    private void makePayment(String[] tokens) {
+    public void makePayment(String[] tokens) {
         if (tokens.length == 2) {
             Money amount = new Money(tokens[1]);
             Money remaining = controller.pay(amount);
@@ -130,7 +130,7 @@ public class View {
         }
     }
 
-    private void displayHelp() {
+    public void displayHelp() {
         System.out.println("startSale                       - starts a new sale");
         System.out.println("exit                            - closes program");
         System.out.println("addItem <itemID> <quantity>     - adds item to current sale");
