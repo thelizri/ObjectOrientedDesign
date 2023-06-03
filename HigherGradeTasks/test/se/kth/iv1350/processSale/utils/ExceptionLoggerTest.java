@@ -4,19 +4,38 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExceptionLoggerTest {
 
-    @BeforeEach
-    void setUp() {
-    }
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    @AfterEach
-    void tearDown() {
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     @Test
-    void logException() {
+    public void testLogException() {
+        Exception testException = new RuntimeException("Test exception");
+        String messageToUser = "An exception occurred";
+        ExceptionLogger.logException(testException, Level.SEVERE, messageToUser);
+
+        // Append newline character because println() appends a newline at the end
+        assertEquals(messageToUser + System.lineSeparator(), outputStreamCaptor.toString());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
     }
 }
