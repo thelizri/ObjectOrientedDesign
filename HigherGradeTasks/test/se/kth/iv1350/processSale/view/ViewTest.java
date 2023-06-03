@@ -5,9 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.integration.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ViewTest {
     private final PrintStream standardOut = System.out;
@@ -32,14 +35,14 @@ public class ViewTest {
     @Test
     public void testStartNewSale() {
         view.startNewSale();
-        String expected = "Created new sale"+System.lineSeparator();
+        String expected = "Created new sale" + System.lineSeparator();
         assertEquals(expected, outputStreamCaptor.toString(), "It should print correct start new sale message");
     }
 
     @Test
     public void testExitProgram() {
         view.exitProgram();
-        String expected = "Exiting program"+System.lineSeparator();
+        String expected = "Exiting program" + System.lineSeparator();
         assertEquals(expected, outputStreamCaptor.toString(), "It should print correct exit program message");
     }
 
