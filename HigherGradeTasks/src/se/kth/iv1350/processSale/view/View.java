@@ -141,6 +141,6 @@ public class View {
     }
 
     private void displayTotalRevenue() {
-        totalRevenueView.displayTotalRevenue();
+        totalRevenueView.doShowTotalIncome();
     }
 }

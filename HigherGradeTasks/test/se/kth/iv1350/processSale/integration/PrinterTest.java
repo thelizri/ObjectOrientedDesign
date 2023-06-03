@@ -10,12 +10,12 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PrinterTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream outStreamCaptor = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
     @BeforeEach
     public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
+        System.setOut(new PrintStream(outStreamCaptor));
     }
 
     @AfterEach
@@ -30,6 +30,6 @@ public class PrinterTest {
         printer.printReceipt(receipt);
 
         // Append newline character because println() appends a newline at the end
-        assertEquals(receipt + System.lineSeparator(), outContent.toString());
+        assertEquals(receipt + System.lineSeparator(), outStreamCaptor.toString());
     }
 }

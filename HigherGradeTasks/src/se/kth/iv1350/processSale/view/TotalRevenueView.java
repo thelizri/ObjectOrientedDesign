@@ -27,14 +27,6 @@ public class TotalRevenueView extends Observer {
     }
 
     /**
-     * This method displays the total revenue to the standard output.
-     * The revenue is formatted as a floating-point number with two decimal places.
-     */
-    public void displayTotalRevenue() {
-        System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
-    }
-
-    /**
      * Calculates the total income by adding the price of the sale that was just made to the total revenue.
      *
      * @param priceOfTheSaleThatWasJustMade The price of the sale that was just completed.
@@ -45,18 +37,12 @@ public class TotalRevenueView extends Observer {
     }
 
     /**
-     * Displays the total income to the standard output. The revenue is formatted as a floating-point number with two decimal places.
-     * This method can potentially throw an Exception if an error occurs while attempting to show the total income.
-     *
-     * @throws Exception if an error occurs while attempting to show the total income.
+     * This method displays the total revenue to the standard output.
+     * The revenue is formatted as a floating-point number with two decimal places.
      */
     @Override
-    protected void doShowTotalIncome() throws Exception {
-        try {
-            System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
-        }catch(Exception exception){
-            throw exception;
-        }
+    public void doShowTotalIncome(){
+        System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
     }
 
     /**
