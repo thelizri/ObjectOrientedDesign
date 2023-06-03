@@ -35,7 +35,9 @@ public class TotalRevenueView extends Observer {
     }
 
     /**
-     * @param priceOfTheSaleThatWasJustMade
+     * Calculates the total income by adding the price of the sale that was just made to the total revenue.
+     *
+     * @param priceOfTheSaleThatWasJustMade The price of the sale that was just completed.
      */
     @Override
     protected void calculateTotalIncome(Money priceOfTheSaleThatWasJustMade) {
@@ -43,19 +45,28 @@ public class TotalRevenueView extends Observer {
     }
 
     /**
-     * @throws Exception
+     * Displays the total income to the standard output. The revenue is formatted as a floating-point number with two decimal places.
+     * This method can potentially throw an Exception if an error occurs while attempting to show the total income.
+     *
+     * @throws Exception if an error occurs while attempting to show the total income.
      */
     @Override
     protected void doShowTotalIncome() throws Exception {
-        System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
+        try {
+            System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
+        }catch(Exception exception){
+            throw exception;
+        }
     }
 
     /**
-     * @param e
+     * Handles any errors that occur during the calculation or display of total income. The error is logged as a severe error.
+     *
+     * @param exception The exception that occurred during the calculation or display of total income.
      */
     @Override
     protected void handleErrors(Exception exception) {
-        ExceptionLogger.logException(exception, Level.SEVERE, "Could not write to sale log file.");
+        ExceptionLogger.logException(exception, Level.SEVERE, "Could not output total revenue.");
     }
 }
 
