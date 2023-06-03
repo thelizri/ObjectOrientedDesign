@@ -1,20 +1,11 @@
-package se.kth.iv1350.task2;
+package se.kth.iv1350.inheritancevscomposition;
 
 import java.util.Random;
 
 /**
- * This class uses java.util.Random through composition and provides a method to generate a biased boolean.
+ * This class extends the java.util.Random class and provides a method to generate a biased boolean.
  */
-public class MyRandomWithComposition {
-
-    private final Random random;
-
-    /**
-     * Constructor that initializes the random object.
-     */
-    public MyRandomWithComposition() {
-        this.random = new Random();
-    }
+public class MyRandomWithInheritance extends Random {
 
     /**
      * Returns a boolean that is true with a probability equal to the given bias.
@@ -28,7 +19,7 @@ public class MyRandomWithComposition {
             throw new IllegalArgumentException("Bias must be between 0 and 1");
         }
 
-        return random.nextFloat() < trueBias;
+        return nextFloat() < trueBias;
     }
 }
 
