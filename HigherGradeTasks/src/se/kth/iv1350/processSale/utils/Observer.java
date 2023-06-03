@@ -5,13 +5,26 @@ package se.kth.iv1350.processSale.utils;
  * This interface is implemented by classes that need to observe a Subject
  * and get notified when changes occur.
  */
-public interface Observer {
+public abstract class Observer {
 
-    /**
-     * This method is called by the observed Subject when a change occurs.
-     * The Money object that is passed contains the updated state.
-     *
-     * @param money the updated state
-     */
-    void update(Money money);
+    protected abstract void calculateTotalIncome(Money priceOfTheSaleThatWasJustMade);
+
+    public void newSaleWasMade ( Money priceOfTheSaleThatWasJustMade ) {
+        calculateTotalIncome ( priceOfTheSaleThatWasJustMade ); // Calculate
+        // the total amount paid since the program started .
+        showTotalIncome ();
+    }
+
+    private void showTotalIncome () {
+        try {
+            doShowTotalIncome ();
+        } catch ( Exception exception ) {
+            handleErrors ( exception );
+        }
+    }
+
+    protected abstract void doShowTotalIncome () throws Exception ;
+
+    protected abstract void handleErrors ( Exception e );
 }
+

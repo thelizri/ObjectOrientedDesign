@@ -1,5 +1,6 @@
 package se.kth.iv1350.processSale.integration;
 
+import se.kth.iv1350.processSale.utils.ExceptionLogger;
 import se.kth.iv1350.processSale.utils.Money;
 import se.kth.iv1350.processSale.utils.Observer;
 
@@ -8,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
 
 /**
  * This class represents a concrete Observer called TotalRevenueFileOutput that writes the total revenue to a file.
@@ -15,7 +17,7 @@ import java.time.format.DateTimeFormatter;
  * <p>
  * The TotalRevenueFileOutput class implements the Observer interface and overrides the update method defined by the interface.
  */
-public class TotalRevenueFileOutput implements Observer {
+public class TotalRevenueFileOutput extends Observer {
 
     private final String filePath;
     private final LocalDateTime dateTime;
@@ -35,18 +37,6 @@ public class TotalRevenueFileOutput implements Observer {
     }
 
     /**
-     * This method is called by the observed Subject when a state change occurs.
-     * The total revenue is updated with the amount contained in the passed Money object, which represents the new state.
-     *
-     * @param money The Money object containing the amount to be added to the total revenue.
-     */
-    @Override
-    public void update(Money money) {
-        totalRevenue = totalRevenue.add(money);
-        outputTotalRevenueToFile();
-    }
-
-    /**
      * This method writes the total revenue to a file.
      * Each line in the file represents an update, and contains the updated total revenue (as a floating-point number with two decimal places)
      * and the timestamp of the update.
@@ -58,6 +48,35 @@ public class TotalRevenueFileOutput implements Observer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @param priceOfTheSaleThatWasJustMade
+     */
+    @Override
+    protected void calculateTotalIncome(Money priceOfTheSaleThatWasJustMade) {
+        totalRevenue = totalRevenue.add(priceOfTheSaleThatWasJustMade);
+        outputTotalRevenueToFile();
+    }
+
+    /**
+     * @throws IOException
+     */
+    @Override
+    protected void doShowTotalIncome() throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            writer.write(String.format("%-20s %10.2f kr %23s\n", "Total Revenue: ", totalRevenue.getAmountFloat(), dateTime.format(dateTimeFormatter)));
+        } catch (IOException exception) {
+            throw exception;
+        }
+    }
+
+    /**
+     * @param exception
+     */
+    @Override
+    protected void handleErrors(Exception exception) {
+        ExceptionLogger.logException(exception, Level.SEVERE, "Could not write to sale log file.");
     }
 }
 

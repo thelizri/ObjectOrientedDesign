@@ -210,7 +210,7 @@ public class Sale implements Subject {
     @Override
     public void notifyObserver() {
         for (Observer observer : observersList) {
-            observer.update(getTotalPricePaid());
+            observer.newSaleWasMade(getTotalPricePaid());
         }
     }
 }

@@ -1,7 +1,10 @@
 package se.kth.iv1350.processSale.view;
 
+import se.kth.iv1350.processSale.utils.ExceptionLogger;
 import se.kth.iv1350.processSale.utils.Money;
 import se.kth.iv1350.processSale.utils.Observer;
+
+import java.util.logging.Level;
 
 /**
  * This is a concrete Observer class called TotalRevenueView that displays the total revenue.
@@ -10,7 +13,7 @@ import se.kth.iv1350.processSale.utils.Observer;
  * <p>
  * The TotalRevenueView class implements the Observer interface and overrides the update method.
  */
-public class TotalRevenueView implements Observer {
+public class TotalRevenueView extends Observer {
 
     private Money totalRevenue;
 
@@ -24,22 +27,35 @@ public class TotalRevenueView implements Observer {
     }
 
     /**
-     * This method is called by the observed Subject when a change occurs.
-     * The total revenue is updated with the Money object that is passed which contains the updated state.
-     *
-     * @param money the Money object containing the amount to be added to the total revenue
-     */
-    @Override
-    public void update(Money money) {
-        totalRevenue = totalRevenue.add(money);
-    }
-
-    /**
      * This method displays the total revenue to the standard output.
      * The revenue is formatted as a floating-point number with two decimal places.
      */
     public void displayTotalRevenue() {
         System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
+    }
+
+    /**
+     * @param priceOfTheSaleThatWasJustMade
+     */
+    @Override
+    protected void calculateTotalIncome(Money priceOfTheSaleThatWasJustMade) {
+        totalRevenue = totalRevenue.add(priceOfTheSaleThatWasJustMade);
+    }
+
+    /**
+     * @throws Exception
+     */
+    @Override
+    protected void doShowTotalIncome() throws Exception {
+        System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
+    }
+
+    /**
+     * @param e
+     */
+    @Override
+    protected void handleErrors(Exception exception) {
+        ExceptionLogger.logException(exception, Level.SEVERE, "Could not write to sale log file.");
     }
 }
 
