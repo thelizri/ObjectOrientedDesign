@@ -6,7 +6,7 @@ package se.kth.iv1350.processSale.utils;
  * making this an example of the Template Method design pattern. The subclasses
  * are responsible for implementing the calculation and displaying of total income,
  * as well as handling potential errors during these processes.
- *
+ * <p>
  * The Observer keeps track of all sales and their total income.
  */
 public abstract class Observer {
@@ -26,20 +26,20 @@ public abstract class Observer {
      *
      * @param priceOfTheSaleThatWasJustMade The cost of the sale that was just completed.
      */
-    public void newSaleWasMade ( Money priceOfTheSaleThatWasJustMade ) {
-        calculateTotalIncome ( priceOfTheSaleThatWasJustMade );
-        showTotalIncome ();
+    public void newSaleWasMade(Money priceOfTheSaleThatWasJustMade) {
+        calculateTotalIncome(priceOfTheSaleThatWasJustMade);
+        showTotalIncome();
     }
 
     /**
      * Displays the total income from all sales. It handles any potential exceptions
      * thrown during the display of the total income.
      */
-    private void showTotalIncome () {
+    private void showTotalIncome() {
         try {
-            doShowTotalIncome ();
-        } catch ( Exception exception ) {
-            handleErrors ( exception );
+            doShowTotalIncome();
+        } catch (Exception exception) {
+            handleErrors(exception);
         }
     }
 
@@ -49,7 +49,7 @@ public abstract class Observer {
      *
      * @throws Exception if an error occurs while attempting to show the total income.
      */
-    protected abstract void doShowTotalIncome () throws Exception ;
+    protected abstract void doShowTotalIncome() throws Exception;
 
     /**
      * Handle any potential errors that may occur while calculating or showing
@@ -58,5 +58,5 @@ public abstract class Observer {
      *
      * @param exception The exception that occurred while calculating or showing the total income.
      */
-    protected abstract void handleErrors ( Exception exception );
+    protected abstract void handleErrors(Exception exception);
 }

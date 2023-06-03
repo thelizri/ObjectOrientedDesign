@@ -41,7 +41,7 @@ public class TotalRevenueView extends Observer {
      * The revenue is formatted as a floating-point number with two decimal places.
      */
     @Override
-    public void doShowTotalIncome(){
+    public void doShowTotalIncome() {
         System.out.printf("%-20s %10.2f kr\n%n", "Total Revenue: ", totalRevenue.getAmountFloat());
     }
 
