@@ -63,6 +63,8 @@ public class Controller {
      *
      * @param itemID   The identifier of the item to add.
      * @param quantity The quantity of the item to add.
+     * @throws ItemDoesNotExistException If the provided itemIdentifier doesn't match any of the supported item identifiers, this exception is thrown with error code 404 and a "Resource not found" message.
+     * @throws DatabaseFailureException  If the provided itemIdentifier is "failure", this exception is thrown with error code 503 and a "Could not connect to database" message, simulating a database failure.
      * @return A string representing the added item and total price of the sale so far.
      */
     public ItemDTO addItem(String itemID, int quantity) throws ItemDoesNotExistException, DatabaseFailureException {
@@ -106,7 +108,7 @@ public class Controller {
 
     /**
      * Closes the current sale, pushing the sale information to external systems.
-     *
+     * @throws SaleNotPaidException is thrown when a Sale is attempted to be closed before being completely paid for.
      * @return true if the sale is closed successfully, false otherwise.
      */
     public void closeSale() throws SaleNotPaidException {
