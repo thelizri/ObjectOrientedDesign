@@ -109,7 +109,6 @@ public class Controller {
     /**
      * Closes the current sale, pushing the sale information to external systems.
      * @throws SaleNotPaidException is thrown when a Sale is attempted to be closed before being completely paid for.
-     * @return true if the sale is closed successfully, false otherwise.
      */
     public void closeSale() throws SaleNotPaidException {
         currentSale.closeSale();
