@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import se.kth.iv1350.processSale.exception.SaleNotPaidException;
 import se.kth.iv1350.processSale.utils.Money;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class SaleTest {
     private Sale sale;
@@ -58,15 +59,13 @@ class SaleTest {
         try {
             sale.closeSale();
             fail("Sale should not be closed if not fully paid");
-        }
-        catch(SaleNotPaidException exception){
+        } catch (SaleNotPaidException exception) {
 
         }
         sale.pay(item.getPriceIncludingVAT());
         try {
             sale.closeSale();
-        }
-        catch(SaleNotPaidException exception){
+        } catch (SaleNotPaidException exception) {
             fail("Sale should be closed if fully paid");
         }
     }

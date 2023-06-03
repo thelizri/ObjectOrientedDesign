@@ -8,7 +8,8 @@ import se.kth.iv1350.processSale.utils.Money;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TotalRevenueViewTest {
 
@@ -34,9 +35,6 @@ class TotalRevenueViewTest {
     public void testHandleErrors() {
         TotalRevenueView totalRevenueView = new TotalRevenueView();
         Exception testException = new RuntimeException("Test exception");
-        totalRevenueView.handleErrors(testException);
-
-        // We can't directly test logging but can verify no exception is thrown
         assertDoesNotThrow(() -> totalRevenueView.handleErrors(testException), "No exception should be thrown");
     }
 

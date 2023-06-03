@@ -23,7 +23,7 @@ public class ControllerTest {
         ExternalAccountingSystem accSys = ExternalAccountingSystem.getInstance();
         Printer printer = new Printer();
         DiscountDatabase discDb = new DiscountDatabase();
-        TotalRevenueFileOutput revenueFileOutput= new TotalRevenueFileOutput();
+        TotalRevenueFileOutput revenueFileOutput = new TotalRevenueFileOutput();
         controller = new Controller(invSys, accSys, printer, discDb, revenueFileOutput);
         totalRevenueView = new TotalRevenueView();
     }

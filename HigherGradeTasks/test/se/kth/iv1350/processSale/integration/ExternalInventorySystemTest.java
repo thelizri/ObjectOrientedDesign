@@ -5,7 +5,8 @@ import se.kth.iv1350.processSale.exception.DatabaseFailureException;
 import se.kth.iv1350.processSale.exception.ItemDoesNotExistException;
 import se.kth.iv1350.processSale.model.Item;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ExternalInventorySystemTest {
 
@@ -37,8 +38,7 @@ public class ExternalInventorySystemTest {
 
             Item item8 = inventorySystem.getItem("juice");
             assertEquals("Orange Juice", item8.getDescription());
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             fail("Unexpected exception was thrown");
         }
 
@@ -46,11 +46,9 @@ public class ExternalInventorySystemTest {
         try {
             Item item9 = inventorySystem.getItem("nonexistentitem");
             fail("Expected exception was not thrown");
-        }
-        catch(ItemDoesNotExistException exception){
+        } catch (ItemDoesNotExistException exception) {
             assertEquals("Resource not found", exception.getErrorMessage());
-        }
-        catch(DatabaseFailureException exception){
+        } catch (DatabaseFailureException exception) {
             fail("Unexpected exception was thrown");
         }
 
@@ -58,11 +56,9 @@ public class ExternalInventorySystemTest {
         try {
             Item item10 = inventorySystem.getItem("failure");
             fail("Expected exception was not thrown");
-        }
-        catch(ItemDoesNotExistException exception){
+        } catch (ItemDoesNotExistException exception) {
             fail("Unexpected exception was thrown");
-        }
-        catch(DatabaseFailureException exception){
+        } catch (DatabaseFailureException exception) {
             assertEquals("Could not connect to database", exception.getErrorMessage());
         }
     }
